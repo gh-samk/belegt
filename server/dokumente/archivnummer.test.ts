@@ -5,7 +5,7 @@ import postgres from "postgres";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { MIGRATIONEN, migrieren } from "../db/migrieren.ts";
 import { testApp } from "../test-app.ts";
-import { testDatenbankUrl } from "../test-db.ts";
+import { testAdminUrl, testDatenbankUrl } from "../test-db.ts";
 import { archivnummerAus } from "./dokumente.ts";
 
 describe("archivnummerAus", () => {
@@ -87,7 +87,7 @@ describe.skipIf(!testDatenbankUrl)("Migration der Archivnummern", () => {
   let ordner: string;
 
   async function admin<T>(f: (sql: postgres.Sql) => Promise<T>): Promise<T> {
-    const sql = postgres(testDatenbankUrl!, { max: 1, onnotice: () => {} });
+    const sql = postgres(testAdminUrl!, { max: 1, onnotice: () => {} });
     try {
       return await f(sql);
     } finally {

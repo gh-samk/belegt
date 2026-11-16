@@ -20,6 +20,12 @@ const vorlage = (url: string) => `${name(url)}_vorlage`;
 /** Datenbank dieses Workers; ohne TEST_DATABASE_URL undefined */
 export const testDatenbankUrl = basis && mitDatenbank(basis, `${name(basis)}_${process.env.VITEST_POOL_ID ?? "1"}`);
 
+/**
+ * Einstieg zum Anlegen und Löschen eigener Datenbanken in einem Test. Die Datenbank des Workers taugt dafür nicht: Sie
+ * gibt es erst, wenn eine Datei in diesem Worker testDatenbank() aufgerufen hat.
+ */
+export const testAdminUrl = basis;
+
 async function neuAnlegen(url: string, datenbank: string, aus?: string): Promise<void> {
   const admin = postgres(url, { max: 1, onnotice: () => {} });
   try {
