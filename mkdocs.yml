@@ -20,6 +20,7 @@ nav:
   - Betrieb:
       - Installation und Betrieb: betrieb.md
       - Anmelden über einen Anbieter, Einbetten: einbetten.md
+      - Mac-App: mac-app.md
   - Arbeiten mit Belegt:
       - Eingang, Mails und Suche: eingang.md
       - Scannen: scannen.md

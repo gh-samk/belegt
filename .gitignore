@@ -9,3 +9,4 @@ playwright-report/
 e2e/.auth/
 site/
 .cache/
+mac/.bau/
