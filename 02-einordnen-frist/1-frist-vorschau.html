@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mockup: Folgen vor dem Einordnen (Fristvorschau)</title>
+<style>
+/* Farben 1:1 aus src/styles.css; --field-border ist der Vorschlag aus DESIGN.md */
+:root{--bg:#fff;--side:#fafafa;--subtle:#f4f4f5;--fg:#09090b;--muted:#68686f;--border:#e4e4e7;--primary:#18181b;--onprimary:#fafafa;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;--c-blue:#2563eb;--c-amber:#b45309;--field-border:#85858e;--font:"Geist Variable",Geist,system-ui,sans-serif;color-scheme:light}
+:root[data-theme=dark]{--bg:#09090b;--side:#0c0c0e;--subtle:#18181b;--fg:#fafafa;--muted:#a1a1aa;--border:#27272a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--c-blue:#60a5fa;--c-amber:#fbbf24;--field-border:#71717a;color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#09090b;--side:#0c0c0e;--subtle:#18181b;--fg:#fafafa;--muted:#a1a1aa;--border:#27272a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--c-blue:#60a5fa;--c-amber:#fbbf24;--field-border:#71717a;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--subtle);color:var(--fg);font:14px/1.5 var(--font)}
+h1,h2,h3,p{margin:0}
+a{color:var(--fg);text-decoration:underline;text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+:is(input,select):focus-visible{outline-offset:0;border-color:var(--fg)}
+.ic{width:16px;height:16px;flex:none;margin-top:2px}
+.muted{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Mockup-Rahmen (nicht Teil der App) */
+.kopf{background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;flex-direction:column;gap:12px}
+.kopf h1{font-size:24px;font-weight:600;line-height:1.25}
+.leiste{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.leiste .gruppe{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.leiste .titel{font-weight:600;margin-right:4px}
+.schalter{display:inline-flex;gap:8px;align-items:center;min-height:40px;cursor:pointer}
+.schalter input{width:20px;height:20px;margin:0;accent-color:var(--primary)}
+.notiz{background:var(--subtle);border:1px solid var(--border);border-radius:6px;padding:12px;max-width:80ch}
+.stage{display:flex;gap:24px;align-items:flex-start;padding:24px;overflow-x:auto}
+.stage>section{flex:none}
+.stage h2{font-size:16px;font-weight:600;margin-bottom:8px}
+.frame{background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.frame.d{width:1100px}
+.frame.m{width:390px;font-size:14px}
+.app{display:grid;grid-template-columns:208px minmax(0,1fr);min-height:420px}
+.m .app{display:block;min-height:0}
+.side{background:var(--side);border-right:1px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:12px}
+.mbar{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--side)}
+.bar{display:block;height:12px;border-radius:4px;background:var(--border)}
+.bar:nth-child(odd){width:70%}.bar:nth-child(even){width:50%}
+.main{padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.m .main{padding:16px}
+.grau{opacity:.5;pointer-events:none;user-select:none}
+.doc{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:24px;align-items:start}
+.m .doc{grid-template-columns:minmax(0,1fr)}
+.vorschaubild{border:1px dashed var(--field-border);border-radius:8px;min-height:360px;display:grid;place-items:center;color:var(--muted)}
+.m .vorschaubild{min-height:96px}
+.doc>.card{grid-column:2;grid-row:1}.doc>.vorschaubild{grid-column:1;grid-row:1}
+.m .doc>*{grid-column:1;grid-row:auto}
+
+/* Bausteine der App */
+.card{border:1px solid var(--border);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.card h2{font-size:18px;font-weight:600;line-height:1.3}
+.zeile{display:flex;flex-direction:column;gap:4px;min-width:0}
+.zeile label{font-weight:500}
+.hilfe{color:var(--muted)}
+.feld{display:block;width:100%;height:40px;padding:0 12px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+.feld[aria-invalid=true]{border-color:var(--danger);box-shadow:inset 3px 0 0 var(--danger)}
+.fehler{display:flex;gap:8px;color:var(--danger)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit;font-weight:500;cursor:pointer;touch-action:manipulation;text-decoration:none;transition:background-color 150ms ease-out,transform 160ms ease-out}
+.btn.haupt{background:var(--primary);color:var(--onprimary);border-color:var(--primary)}
+.btn.text{border-color:transparent;background:transparent;text-decoration:underline;text-underline-offset:2px;padding:0 8px}
+.btn:active{transform:scale(.97)}
+@media(hover:hover){.btn:hover{background:var(--subtle)}.btn.haupt:hover{background:var(--primary);opacity:.9}}
+@media(pointer:coarse){.btn,.feld{min-height:44px;height:44px}.btn{height:auto}}
+.m .btn,.m .feld{min-height:44px;font-size:16px}.m .feld{height:44px}
+.knoepfe{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:center}
+.m .knoepfe .btn{flex:1 1 auto}
+.vs{display:flex;gap:8px;padding:12px;border-radius:6px;background:var(--subtle);border:1px solid var(--border);min-height:176px}
+.m .vs{min-height:192px}
+.vs>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.vs strong{font-weight:600}
+.vs.fehl{border-color:var(--danger);min-height:0}.vs.fehl .ic{color:var(--danger)}
+.hinweis{display:flex;gap:8px;color:var(--muted)}
+.lang{overflow-wrap:anywhere}
+dl.erg{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:8px 16px;margin:0}
+.m dl.erg{grid-template-columns:minmax(0,1fr);gap:0}.m dl.erg dd{margin-bottom:12px}
+dl.erg dt{color:var(--muted)}dl.erg dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+table{border-collapse:collapse;width:100%;max-width:900px;background:var(--bg)}
+th,td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+th{background:var(--subtle);font-weight:600}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+
+/* „neu“ markieren: Etikett (Text) plus Rahmenlinie */
+.neu-e{visibility:hidden;display:inline-block;font-size:12px;font-weight:500;line-height:18px;padding:0 6px;border:1px solid var(--muted);border-radius:4px;color:var(--muted);margin-right:8px;vertical-align:middle;background:var(--bg)}
+.hl .neu-e{visibility:visible}
+.neu{position:relative;margin-top:24px}
+.neu>.neu-e:first-child{position:absolute;bottom:100%;left:0;margin:0 0 4px}
+.hl .neu{box-shadow:0 0 0 3px var(--bg),0 0 0 4px var(--muted)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.rz{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap}
+.status{display:flex;gap:8px;align-items:flex-start;padding:12px;border-radius:6px;background:var(--subtle);border:1px solid var(--border);min-height:48px}
+.fok{outline:2px solid var(--fg);outline-offset:2px}
+.zaehler{display:flex;align-items:center;gap:16px}
+.m .zaehler{flex-direction:column;align-items:stretch;gap:8px;width:100%}
+h1.seite{font-size:24px;font-weight:600;line-height:1.25}
+.leer{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:48px 16px;border:1px dashed var(--field-border);border-radius:8px}
+.leer .rund{width:48px;height:48px;border-radius:50%;background:var(--subtle);border:1px solid var(--border);display:grid;place-items:center}
+.leer .rund .ic{width:24px;height:24px;margin:0}
+.leer .gross{font-size:18px;font-weight:600}
+.m .leer .btn{align-self:stretch}
+.tabelle{padding:0 24px 32px}
+.tabelle h2{font-size:18px;font-weight:600;margin-bottom:8px}
+.btn[aria-pressed=true]{background:var(--subtle);border-color:var(--fg);font-weight:600}
+.lk{display:inline-flex;align-items:center;min-height:24px;padding:0 4px;margin-left:-4px}
+.m .lk{min-height:44px}
+.schalter:has(:disabled){opacity:.5}
+
+</style>
+</head>
+<body>
+<header class="kopf">
+  <h1>Folgen vor dem Einordnen: Fristvorschau</h1>
+  <p class="muted"><a href="index.html">Überblick</a> · Mockup, kein Produktivcode. Nur das Neue ist gestaltet, der Rest ist ausgegraut. Die Felder und die Auswahl der Art sind bedienbar, die Knöpfe „Einordnen“ tun nichts. Der Link „Mehr zu Fristen“ ist ein Platzhalter; in der App zeigt er auf die veröffentlichte Doku-Seite „Fristen“. Die Meldungstexte der Felder sind Beispiele: Den Wortlaut liefert der Server, das Formular setzt ihn nur unter das Feld.</p>
+  <div class="leiste" role="group" aria-label="Zustand wählen"><span class="titel">Zustand</span><span class="gruppe" id="tabs"></span></div>
+  <div class="leiste">
+    <span class="gruppe" role="group" aria-label="Darstellung"><span class="titel">Darstellung</span>
+      <button type="button" class="btn" data-theme-set="light" aria-pressed="false">Hell</button>
+      <button type="button" class="btn" data-theme-set="dark" aria-pressed="false">Dunkel</button>
+      <button type="button" class="btn" data-theme-set="geraet" aria-pressed="true">Gerät</button></span>
+    <label class="schalter"><input type="checkbox" id="hl" checked> Änderungen hervorheben</label>
+    <label class="schalter"><input type="checkbox" id="lade"> Vorschau lädt (Ladezustand zeigen; nicht bei ⑥)</label>
+  </div>
+  <p class="notiz" id="notiz" role="note"></p>
+</header>
+<main id="stage" class="stage" tabindex="0" aria-label="Rahmen, seitlich scrollbar"></main>
+<script>
+/* Lucide-Pfade, einfarbig, 16 px, Strich 2 */
+const I={
+info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+alert:'<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>',
+lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18m-12 6 2 2 4-4"/>',
+check:'<path d="M20 6 9 17l-5-5"/>',
+ok:'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+dots:'<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+back:'<path d="m12 19-7-7 7-7M19 12H5"/>',
+next:'<path d="M5 12h14m-7-7 7 7-7 7"/>',
+retry:'<path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8M21 3v5h-5"/>',
+file:'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/>'};
+const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${I[n]}</svg>`;
+const de=iso=>iso.split('-').reverse().join('.');
+const neu=(t='neu')=>`<span class="neu-e">${t}</span>`;
+const bars=n=>'<i class="bar"></i>'.repeat(n);
+
+/* Rahmen: App-Hülle stark vereinfacht und ausgegraut, nur `inner` ist das Neue */
+function shell(f,inner){
+  return f==='d'
+    ?`<div class="app"><div class="side grau" inert aria-hidden="true">${bars(7)}</div><div class="main">${inner}</div></div>`
+    :`<div class="mbar grau" inert aria-hidden="true"><span>Belegt</span><span>Menü</span></div><div class="main">${inner}</div>`;
+}
+const zn=()=>{const b=document.querySelector('#tabs [aria-pressed="true"]');return b?': '+b.textContent:'';};
+function frames(html){ // beide Fassungen aus demselben Markup
+  $('#stage').innerHTML=
+   `<section aria-label="Desktop, 1100 Pixel${zn()}"><h2>Desktop, 1100 px</h2><div class="frame d">${shell('d',html('d'))}</div></section>`+
+   `<section aria-label="Handy, 390 Pixel${zn()}"><h2>Handy, 390 px</h2><div class="frame m">${shell('m',html('m'))}</div></section>`;
+}
+const $=(s,r=document)=>r.querySelector(s);
+
+/* Kopf: Theme, Hervorheben, Zustandswahl */
+function chrome(tabs,select){
+  const root=document.documentElement;
+  document.querySelectorAll('[data-theme-set]').forEach(b=>b.onclick=()=>{
+    const v=b.dataset.themeSet; v==='geraet'?root.removeAttribute('data-theme'):root.setAttribute('data-theme',v);
+    document.querySelectorAll('[data-theme-set]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  });
+  const hl=$('#hl'); if(hl){hl.onchange=()=>document.body.classList.toggle('hl',hl.checked);hl.onchange();}
+  const t=$('#tabs'); if(!t)return;
+  t.innerHTML=tabs.map(([k,l])=>`<button type="button" class="btn" data-z="${k}" aria-pressed="false">${l}</button>`).join('');
+  t.onclick=e=>{const b=e.target.closest('[data-z]');if(b)pick(b.dataset.z);};
+  window.pick=k=>{t.querySelectorAll('[data-z]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.z===k));select(k);};
+  pick(tabs[0][0]);
+}
+
+
+const ENT='2026-03-12';
+const A={
+ beleg:{n:'Buchungsbelege',ex:'Belege zu einer Buchung: Rechnung, Quittung, Kontoauszug.',j:8,bis:'2034-12-31',g:'§ 147 AO'},
+ geschaeftsbrief:{n:'Handels- und Geschäftsbriefe',ex:'Schriftverkehr über ein Geschäft: Angebot, Auftragsbestätigung, Mail an Kunden.',j:6,bis:'2032-12-31',g:'§ 147 AO'},
+ buecher:{n:'Bücher, Aufzeichnungen, Abschlüsse',ex:'Deine Aufzeichnungen: Kassenbuch, Inventarliste, Jahresabschluss.',j:10,bis:'2036-12-31',g:'§ 147 AO'},
+ zoll:{n:'Unterlagen zum Zoll',ex:'Papiere für Ein- und Ausfuhr: Zollanmeldung, Einfuhrbeleg.',j:10,bis:'2036-12-31',g:'§ 147 AO'},
+ sonstige:{n:'Sonstige steuerlich bedeutsame Unterlagen',ex:'Sonst wichtig für die Steuer: Vertrag, Bescheid, Gutachten.',j:6,bis:'2032-12-31',g:'§ 147 AO'},
+ freiwillig:{n:'Freiwillig mit Frist',ex:'Ohne Pflicht, aber du willst es eine Weile behalten: Garantie, Mietvertrag.'},
+ frei:{n:'Frei',ex:'Ohne Frist, jederzeit löschbar: Werbung, Notiz, Entwurf.'}};
+const VOR='beleg';
+const S={art:'beleg',bis:'',vorlage:'',touched:false,err:false,load:false};
+const Z={
+ '1':['① Vorgabe',{art:'beleg',bis:'',vorlage:'',touched:false,err:false},'Die Art kommt vom Dokumenttyp (Rechnung) und ist vorausgewählt, markiert als Vorgabe. Die Vorschau steht schon da, bevor jemand klickt. Der Satz zur Art erklärt in Alltagssprache, was gemeint ist.'],
+ '2':['② andere Art',{art:'geschaeftsbrief',bis:'',vorlage:'',touched:false,err:false},'Die Person wählt eine andere Art als die Vorgabe. Vorschau und Beispiel wechseln. Ein ruhiger Hinweis nennt die Abweichung und bietet „Vorgabe wählen“; keine Warnfarbe.'],
+ '3':['③ Pflicht mit Frist',{art:'buecher',bis:'',vorlage:'',touched:false,err:false},'Gesetzliche Frist, hier zehn Jahre. Der Hinweis „Läuft eine Prüfung, kann die Frist länger gelten“ mit Link zur Doku steht bei jeder gesetzlichen Art (①②③); Belegt kennt nur den frühesten Tag.'],
+ '4':['④ freiwillig',{art:'freiwillig',bis:'2028-03-12',vorlage:'2028-03-12',touched:true,err:false},'Vorlage „Garantie (24 Monate)“ trägt das Datum ein, es bleibt änderbar. Die Vorschau nennt den gewählten Tag. Ohne Datum fragt der Browser den Server nicht.'],
+ '4b':['④ Datum fehlt',{art:'freiwillig',bis:'',vorlage:'',touched:true,err:false},'Feldfehler direkt unter dem Feld, nach Verlassen des Feldes oder beim Einordnen (Wortlaut ist ein Beispiel; role=alert, aria-invalid, aria-describedby). „Einordnen“ bleibt bedienbar; ein Klick setzt den Fokus auf das Feld. Die Vorschau bleibt neutral.'],
+ '4c':['④ Datum zu früh',{art:'freiwillig',bis:'2025-12-01',vorlage:'',touched:true,err:false},'Der Server antwortet mit 400 und liefert den Meldungstext; das Formular setzt ihn als Feldfehler unter das Feld. Der Wortlaut hier ist ein Beispiel.'],
+ '5':['⑤ frei',{art:'frei',bis:'',vorlage:'',touched:false,err:false},'Keine Frist, jederzeit löschbar. Der Hinweis sagt, dass das Löschen trotzdem noch einmal nachfragt (Rückfrage „Jetzt löschen“).'],
+ '6':['⑥ Server weg',{art:'beleg',bis:'',vorlage:'',touched:false,err:true},'Meldung in drei Teilen innerhalb der Vorschau (role=alert): was passiert ist, dass nichts verloren geht, was man tun kann. „Einordnen“ bleibt möglich, denn der Server rechnet beim Speichern ohnehin. Nur dieser Zustand darf die Zeile höher machen.']};
+
+function vorschau(){
+  const a=A[S.art];
+  if(S.err) return ['',`<div class="vs fehl">${ic('alert')}<div><p><strong>Die Frist konnte nicht angezeigt werden.</strong> Der Server antwortet gerade nicht.</p><p>Es geht nichts verloren. Du kannst trotzdem einordnen, Belegt rechnet die Frist beim Speichern.</p><div><button type="button" class="btn" data-act="retry">${ic('retry')}Erneut versuchen</button></div></div></div>`];
+  if(S.load) return [`<div class="vs">${ic('dots')}<div><p><strong>Frist wird berechnet …</strong></p><p class="muted">Du kannst schon weiter ausfüllen.</p></div></div>`,''];
+  const fw=S.art==='freiwillig';
+  let h;
+  if(fw&&(!S.bis||S.bis<ENT)) h=`${ic('info')}<div><p><strong>Die Frist erscheint, sobald ein gültiges Datum da ist.</strong></p></div>`;
+  else if(fw) h=`${ic('lock')}<div><p><strong>Wird aufbewahrt bis ${de(S.bis)}, bis dahin nicht löschbar.</strong></p><p class="muted">Selbst gewählt. Danach darfst du löschen.</p></div>`;
+  else if(S.art==='frei') h=`${ic('info')}<div><p><strong>Keine Frist. Du kannst es jederzeit löschen.</strong></p><p class="muted">Beim Löschen fragt Belegt noch einmal nach.</p></div>`;
+  else h=`${ic('lock')}<div><p><strong>Wird aufbewahrt bis ${de(a.bis)}, vorher nicht löschbar.</strong></p><p class="muted">${a.j} Jahre ab Ende 2026 (${a.g}).</p><p class="muted">Läuft eine Prüfung, kann die Frist länger gelten. </p><p><a class="lk" href="#fristen-doku">Mehr zu Fristen</a></p></div>`;
+  return [`<div class="vs">${h}</div>`,''];
+}
+
+function view(f){
+  const p=f+'-',a=A[S.art],fw=S.art==='freiwillig';
+  const opts=Object.entries(A).map(([k,v])=>`<option value="${k}"${k===S.art?' selected':''}>${v.n}${k===VOR?' (Vorgabe)':''}</option>`).join('');
+  const vorg=S.art===VOR
+    ?`<p class="hinweis" id="${p}vg">${ic('info')}<span>Vorgabe vom Dokumenttyp Rechnung</span></p>`
+    :`<div class="hinweis" id="${p}vg">${ic('info')}<span>Anders als die Vorgabe vom Dokumenttyp Rechnung (Buchungsbelege). Das ist in Ordnung, wenn es nicht passt. <button type="button" class="btn text" data-act="vorgabe">Vorgabe wählen</button></span></div>`;
+  const miss=fw&&S.touched&&!S.bis, early=fw&&S.bis&&S.bis<ENT;
+  const ferr=miss?'Wähle ein Datum, bis wann das Dokument bleiben soll.':early?`Das Datum liegt vor dem ${de(ENT)}, an dem das Dokument entstanden ist. Wähle einen späteren Tag.`:'';
+  const frei=fw?`<div class="zeile"><label for="${p}vl">Vorlage</label><select class="feld" id="${p}vl" data-vorlage><option value="">Fristende selbst wählen</option><option value="2028-03-12"${S.vorlage==='2028-03-12'?' selected':''}>Garantie (24 Monate)</option><option value="2029-03-12"${S.vorlage==='2029-03-12'?' selected':''}>Mietvertrag (36 Monate)</option></select></div>
+   <div class="zeile${ferr?' neu':''}">${ferr?neu('neu: Fehler am Feld'):''}<label for="${p}bis">Aufbewahren bis</label><input class="feld" type="date" id="${p}bis" data-bis value="${S.bis}"${ferr?` aria-invalid="true" aria-describedby="${p}bf"`:''}>${ferr?`<p class="fehler" id="${p}bf" role="alert">${ic('alert')}<span>${ferr}</span></p>`:''}</div>`:'';
+  const [st,al]=vorschau();
+  return `<div class="doc">
+  <section class="card" aria-labelledby="${p}h">
+    <h2 id="${p}h">Einordnung</h2>
+    <div class="zeile"><label for="${p}art">Art</label>
+      <select class="feld" id="${p}art" data-art aria-describedby="${p}ex ${p}vg">${opts}</select>
+      <div class="neu">${neu()}<p class="hilfe" id="${p}ex">${a.ex}</p>${vorg}</div></div>
+    <div class="zeile"><label for="${p}ent">Entstanden, empfangen oder abgesandt am</label><input class="feld" type="date" id="${p}ent" value="${ENT}"></div>
+    ${frei}
+    <div class="zeile grau" inert aria-hidden="true"><span>Titel, Korrespondent: unverändert</span>${bars(2)}</div>
+    <div class="vs-slot neu">${neu()}<div role="status" aria-live="polite" aria-atomic="true">${st}</div><div role="alert">${al}</div></div>
+    <div class="knoepfe"><button type="button" class="btn">Einordnen &amp; weiter</button><button type="button" class="btn haupt">Einordnen</button></div>
+  </section>
+  <div class="vorschaubild grau" inert aria-hidden="true">${ic('file')} Dokument, unverändert</div></div>`;
+}
+const draw=()=>{$('#lade').disabled=S.err;frames(view);};
+function setZ(k){Object.assign(S,Z[k][1]);S.load=$('#lade').checked;$('#notiz').textContent=Z[k][2];draw();}
+chrome(Object.entries(Z).map(([k,v])=>[k,v[0]]),setZ);
+$('#lade').onchange=e=>{S.load=e.target.checked;draw();};
+const ungewaehlt=()=>document.querySelectorAll('[data-z]').forEach(x=>x.setAttribute('aria-pressed','false'));
+$('#stage').addEventListener('change',e=>{const t=e.target;
+  if(t.matches('[data-art]')){S.art=t.value;S.err=false;S.touched=false;}
+  else if(t.matches('[data-vorlage]')){S.vorlage=t.value;S.bis=t.value;S.touched=true;}
+  else if(t.matches('[data-bis]')){S.bis=t.value;S.vorlage='';S.touched=true;}
+  else return;
+  ungewaehlt();draw();document.getElementById(t.id)?.focus();});
+$('#stage').addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;
+  const p=b.closest('.frame').classList.contains('d')?'d-':'m-';
+  if(b.dataset.act==='vorgabe'){S.art=VOR;ungewaehlt();draw();document.getElementById(p+'art').focus();}
+  if(b.dataset.act==='retry'){S.err=false;S.load=true;draw();setTimeout(()=>{S.load=$('#lade').checked;draw();},900);}});
+</script>
+</body>
+</html>

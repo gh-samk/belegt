@@ -1,0 +1,146 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mockups: Postfach und Scanner anbinden</title><script>(function(){var q=new URLSearchParams(location.search),t=q.get('theme'),r=document.documentElement;if(t==='light'||t==='dark')r.setAttribute('data-theme',t);if(self!==top)r.classList.add('embedded')})()</script>
+<style>
+:root{--bg:#fff;--side:#fafafa;--fg:#09090b;--muted:#68686f;--subtle:#f4f4f5;--border:#e4e4e7;--primary:#18181b;--onprimary:#fafafa;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;--field-border:#85858e;--control-h:40px;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#09090b;--side:#0c0c0e;--fg:#fafafa;--muted:#a1a1aa;--subtle:#18181b;--border:#27272a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--field-border:#71717a;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#09090b;--side:#0c0c0e;--fg:#fafafa;--muted:#a1a1aa;--subtle:#18181b;--border:#27272a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--field-border:#71717a;color-scheme:dark}
+@media(pointer:coarse),(max-width:1024px){:root{--control-h:44px}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 14px/1.5 "Geist Variable",system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:72px}
+h1,h2,h3,p{margin:0}
+a{color:var(--fg);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+input:focus-visible,select:focus-visible{outline-offset:0;border-color:var(--fg)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:8px;top:-60px;background:var(--bg);border:1px solid var(--field-border);padding:8px 12px;border-radius:6px;z-index:50}
+.skip:focus{top:8px}
+.muted{color:var(--muted)}
+svg.i{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+.side{background:var(--side);border-right:1px solid var(--border);padding:16px 12px;display:flex;flex-direction:column;gap:16px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-weight:600;font-size:16px;padding:4px 8px}
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side nav a{display:flex;align-items:center;min-height:var(--control-h);padding:0 8px;border-radius:6px;text-decoration:none;color:var(--muted)}
+.side nav a:hover{background:var(--subtle)}
+.side nav a[aria-current=page]{background:var(--subtle);color:var(--fg);font-weight:500}
+.side .unten{margin-top:auto}
+.topbar{display:none}
+.kopf{height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px}
+.kopf h1{font-size:24px;font-weight:600;line-height:1.2}
+.inhalt{max-width:880px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);overflow-x:auto}
+.tabs a{display:flex;align-items:center;min-height:var(--control-h);padding:0 12px;color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs a[aria-current=page]{color:var(--fg);border-bottom-color:var(--fg);font-weight:500}
+.karte{display:flex;flex-direction:column;gap:12px;border:1px solid var(--border);border-radius:8px;padding:16px}
+.karte>h2{font-size:18px;font-weight:600;line-height:1.3}
+.karte .hilfe-text,.karte>p.muted{font-size:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:var(--control-h);padding:0 16px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font-family:inherit;font-size:14px;font-weight:500;line-height:1.25;text-decoration:none;cursor:pointer;touch-action:manipulation;transition:background-color .15s ease,transform .16s ease-out}
+.btn:disabled{opacity:.5;cursor:default}
+.btn-primary{background:var(--primary);border-color:var(--primary);color:var(--onprimary)}
+.btn-danger{border-color:var(--danger);color:var(--danger)}
+@media(hover:hover) and (pointer:fine){.btn:not(:disabled):hover{background:var(--subtle)}.btn-primary:not(:disabled):hover{background:var(--primary);opacity:.9}}
+.btn:not(:disabled):active{transform:scale(.97)}
+.knoepfe{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+.liste{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.eintrag{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--border);border-radius:8px;padding:12px}
+.eintrag>.text{display:flex;flex-direction:column;min-width:0;overflow-wrap:anywhere}
+.eintrag .titel{font-weight:500}
+.eintrag .aktionen{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+.assistent{display:flex;flex-direction:column;gap:16px;border:1px solid var(--border);border-radius:6px;background:var(--subtle);padding:16px}
+.ass-kopf{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
+.ass-kopf .name{font-weight:500}
+.schritt{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.punkte{display:flex;gap:4px}.punkte i{width:24px;height:4px;border-radius:2px;background:var(--border);border:1px solid var(--field-border)}.punkte i.an{background:var(--fg);border-color:var(--fg)}
+.assistent h3{font-size:18px;font-weight:600;line-height:1.3}
+.dienste{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.dienst{display:flex;flex-direction:column;gap:6px;min-height:112px;height:100%;padding:16px;border:1px solid var(--field-border);border-radius:8px;background:var(--bg);text-decoration:none;transition:background-color .15s ease,transform .16s ease-out}
+.dienst:active{transform:scale(.98)}
+@media(hover:hover) and (pointer:fine){.dienst:hover{background:var(--subtle)}}
+.dienst .zeile{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:16px;font-weight:600}
+.dienst .marke{align-self:flex-start;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;color:var(--muted)}
+.zurueck{display:inline-flex;align-items:center;gap:8px;min-height:var(--control-h);align-self:flex-start;color:var(--muted)}
+.felder[hidden]{display:none}
+.felder{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.feld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.feld.breit{grid-column:1/-1}
+.feld label{font-weight:500}
+input[type=text],input[type=password],input[type=number],select{width:100%;min-height:var(--control-h);padding:0 12px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit;font-family:inherit}
+input::placeholder{color:var(--muted);opacity:1}
+input[aria-invalid=true]{border-color:var(--danger)}
+.hilfe{color:var(--muted);overflow-wrap:anywhere}
+.fehler-feld{display:flex;gap:6px;align-items:flex-start;color:var(--danger);font-weight:500}
+.fehler-feld svg{margin-top:3px}
+.haken{display:flex;align-items:center;gap:12px;min-height:var(--control-h);font-weight:500}
+input[type=checkbox]{appearance:none;width:20px;height:20px;margin:0;flex:none;border:1px solid var(--primary);border-radius:4px;background:var(--bg);display:inline-grid;place-content:center;cursor:pointer}
+input[type=checkbox]:checked{background:var(--primary)}
+input[type=checkbox]:checked::before{content:"";width:12px;height:12px;background:var(--onprimary);clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0%,43% 62%)}
+details>summary{display:flex;align-items:center;gap:8px;min-height:var(--control-h);cursor:pointer;font-weight:500;list-style:none}
+details>summary::-webkit-details-marker{display:none}
+details>summary svg{transition:transform .16s ease-out}
+details[open]>summary svg{transform:rotate(90deg)}
+.erweitert{border-top:1px solid var(--border);padding-top:4px}
+.erweitert .felder{padding:8px 0 4px}
+pre{margin:0;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--subtle);border:1px solid var(--border);border-radius:4px;padding:1px 6px;overflow-wrap:anywhere}
+.meldung{display:flex;flex-direction:column;gap:12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);padding:16px}
+.meldung.fehler{border-color:var(--danger)}
+.meldung .kopfzeile{display:flex;gap:10px;align-items:flex-start;font-size:16px;font-weight:600}
+.meldung .kopfzeile svg{width:20px;height:20px;margin-top:2px}
+.meldung.ok .kopfzeile svg{color:var(--ok)}.meldung.fehler .kopfzeile svg{color:var(--danger)}
+.meldung .teil{display:block}
+.meldung .teil b{display:block;font-weight:600}
+.zusammen{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0}
+.zusammen dt{color:var(--muted)}.zusammen dd{margin:0;overflow-wrap:anywhere}
+.leer{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:32px 16px;border:1px solid var(--border);border-radius:8px;background:var(--subtle)}
+.leer .ikon{display:grid;place-items:center;width:48px;height:48px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--muted)}
+.leer .ikon svg{width:24px;height:24px}
+.leer .satz{font-size:16px;font-weight:600}
+.leer p.muted{max-width:48ch}
+.warnung{display:flex;gap:12px;border:1px solid var(--warn);border-radius:8px;background:var(--subtle);padding:12px 16px}
+.warnung svg{color:var(--warn);margin-top:3px}
+.schritte{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.sch{display:flex;flex-direction:column;gap:8px;border:1px solid var(--border);border-radius:8px;padding:16px}
+.sch-kopf{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 12px}
+.sch-kopf h3{font-size:16px;font-weight:600}
+.zustand{display:inline-flex;align-items:center;gap:6px;font-weight:500;border:1px solid var(--border);border-radius:6px;padding:2px 8px}
+.zustand.fertig svg{color:var(--ok)}.zustand.offen{color:var(--muted)}
+.sch ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.anm{border:1px dashed var(--field-border);border-radius:8px;padding:12px 16px;color:var(--muted)}
+.anm b{color:var(--fg)}
+.mockbar{position:fixed;right:12px;bottom:12px;display:flex;align-items:center;gap:4px;background:var(--bg);border:1px solid var(--field-border);border-radius:8px;padding:4px;z-index:40}
+.mockbar button{min-height:var(--control-h);padding:0 12px;border:0;border-radius:6px;background:transparent;color:var(--fg);font:inherit;font-weight:500;cursor:pointer}
+.mockbar button[aria-pressed=true]{background:var(--primary);color:var(--onprimary)}
+.embedded .mockbar,.embedded .anm,.embedded .skip{display:none}
+.embedded body{padding-bottom:16px}
+@media(max-width:767px){
+ :root{--control-h:44px}
+ body{font-size:14px}
+ .app{display:block}
+ .topbar{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 16px;border-bottom:1px solid var(--border);background:var(--side);position:sticky;top:0;z-index:30}
+ .side{display:none;position:static;height:auto;border-right:0;border-bottom:1px solid var(--border)}
+ .side.offen{display:flex}
+ .side .brand{display:none}
+ .kopf{padding:0 16px}.kopf h1{font-size:24px}
+ .inhalt{padding:16px}
+ input[type=text],input[type=password],input[type=number],select{font-size:16px}
+ .felder{grid-template-columns:1fr}
+ .btn{font-size:16px}
+ .knoepfe .btn{flex:1 1 auto}
+ .zusammen{grid-template-columns:1fr}
+ .inhalt p a,.inhalt li a:not(.dienst),.inhalt .anm a{display:inline-flex;align-items:center;min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+body{padding:24px;font-size:16px;max-width:760px}li{margin:0 0 16px}</style></head>
+<body><h1 style="font-size:24px">Mockups: Postfach und Scanner anbinden</h1>
+<p>Statische Entwürfe für Issue 3, Abschnitt E, passend zu PR 47 (Postfach ändern und entfernen). Hell und dunkel nach Gerät, umschaltbar unten rechts.</p>
+<p><a href="ansichten.html"><b>Alle Ansichten nebeneinander</b></a> (Desktop 1280 px und Handy 390 px, hell und dunkel) · <a href="anmerkungen.md">anmerkungen.md</a></p>
+<ol><li><a href="01-dienstwahl.html"><b>1 · Dienstwahl</b></a> <span class="muted">(01-dienstwahl.html)</span><br>Schritt 1 von 2: „Welchen Mail-Dienst nutzt du?“ mit drei großen Karten (Google, Microsoft 365, Andere). Eine Wahl führt weiter.</li><li><a href="02-felder.html"><b>2 · Felder</b></a> <span class="muted">(02-felder.html)</span><br>Schritt 2 von 2 für „Andere“: Name, Server, Benutzer, Passwort, Ordner mit Platzhaltern und Hilfetexten, „Erweitert“ zu. Mit <code>?dienst=google</code> die OAuth-Variante.</li><li><a href="03-erweitert.html"><b>3 · Erweitert</b></a> <span class="muted">(03-erweitert.html)</span><br>Wie 2, „Erweitert“ offen: Art, Port, TLS.</li><li><a href="04-erfolg.html"><b>4 · Verbindung steht</b></a> <span class="muted">(04-erfolg.html)</span><br>Erfolg in drei Teilen („Verbunden. 128 Nachrichten im Ordner INBOX.“), Details eingeklappt, Knöpfe „Abruf später starten“ und „Postfach jetzt abrufen“.</li><li><a href="05-fehler.html"><b>5 · Verbindung abgelehnt</b></a> <span class="muted">(05-fehler.html)</span><br>Fehler in drei Teilen bei falschem Passwort, Feld mit aria-invalid und aria-describedby, Details eingeklappt.</li><li><a href="06-leerzustand.html"><b>6 · Leerzustand</b></a> <span class="muted">(06-leerzustand.html)</span><br>Karte Postfächer ohne Eintrag: ein Satz, Zweck, ein Knopf „Postfach anbinden“.</li><li><a href="07-scanner.html"><b>7 · Scanner anbinden</b></a> <span class="muted">(07-scanner.html)</span><br>Reiter Scannen: drei Schritte mit Zustand (Erledigt/Offen), Warnung „Nur im eigenen Netz“, Link zu docs/scannen.md, Trennblatt-Download.</li></ol>
+<div class="mockbar" role="group" aria-label="Darstellung"><button type="button" data-wahl="light" aria-pressed="false">Hell</button><button type="button" data-wahl="dark" aria-pressed="false">Dunkel</button><button type="button" data-wahl="auto" aria-pressed="true">Gerät</button></div>
+<script>(function(){
+var r=document.documentElement;
+function an(v){if(v==='light'||v==='dark')r.setAttribute('data-theme',v);else r.removeAttribute('data-theme');
+document.querySelectorAll('[data-wahl]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.wahl===(v||'auto')))})}
+document.querySelectorAll('[data-wahl]').forEach(function(b){b.addEventListener('click',function(){an(b.dataset.wahl)})});
+an(r.getAttribute('data-theme'));
+var m=document.getElementById('menue'),s=document.getElementById('nav');
+if(m)m.addEventListener('click',function(){var o=s.classList.toggle('offen');m.setAttribute('aria-expanded',String(o))});
+})()</script></body></html>

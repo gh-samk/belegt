@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start – Belegt (Mockup C alles erledigt)</title>
+<style>
+:root{--bg:#ffffff;--side:#fafafa;--fg:#09090b;--muted:#68686f;--subtle:#f4f4f5;--border:#e4e4e7;--field-border:#85858e;--primary:#18181b;--onprimary:#fafafa;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;--c-blue:#2563eb;--c-amber:#b45309;--ease:cubic-bezier(.23,1,.32,1);color-scheme:light}
+:root[data-theme=dark]{--bg:#09090b;--side:#0c0c0e;--fg:#fafafa;--muted:#a1a1aa;--subtle:#18181b;--border:#27272a;--field-border:#71717a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--c-blue:#60a5fa;--c-amber:#fbbf24;color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#09090b;--side:#0c0c0e;--fg:#fafafa;--muted:#a1a1aa;--subtle:#18181b;--border:#27272a;--field-border:#71717a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--c-blue:#60a5fa;--c-amber:#fbbf24;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+input:focus-visible{outline-offset:0;border-color:var(--fg)}
+a{color:inherit}
+h1,h2,h3,p,ul,dl,dd{margin:0}
+ul{padding:0;list-style:none}
+.ic{flex:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:16px;top:-80px;background:var(--primary);color:var(--onprimary);padding:8px 12px;border-radius:6px;z-index:100}
+.skip:focus{top:16px}
+.mock{display:flex;gap:16px;align-items:center;padding:6px 16px;background:var(--subtle);border-bottom:1px solid var(--border);font-size:14px;color:var(--muted)}
+.mock a{padding:4px 0}
+.im-rahmen .mock{display:none}
+.app{display:flex;min-height:100dvh}
+.side{width:256px;flex:none;display:flex;flex-direction:column;gap:20px;padding:16px 12px;background:var(--side);border-right:1px solid var(--border);position:sticky;top:0;height:100dvh;overflow-y:auto}
+.marke{padding:0 10px;display:flex;flex-direction:column}
+.marke b{font-size:16px;font-weight:600}
+.marke span{font-size:14px;color:var(--muted)}
+.gruppe{display:flex;flex-direction:column;gap:2px}
+.gk{font-size:14px;font-weight:500;color:var(--muted);padding:0 10px 4px}
+.it{display:flex;align-items:center;gap:10px;position:relative;height:40px;padding:0 10px;border-radius:6px;text-decoration:none;color:var(--fg);transition:background-color 120ms ease}
+.it .ic{color:var(--muted)}
+.it[aria-current=page]{background:var(--subtle);font-weight:500}
+.it[aria-current=page] .ic{color:var(--fg)}
+.it[aria-current=page]::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:2px;border-radius:2px;background:var(--fg)}
+.it .txt{min-width:0;overflow-wrap:anywhere}
+.ansichten{padding-left:12px;display:flex;flex-direction:column;gap:2px}
+.ansichten .it{padding-left:10px}
+.zahl{margin-left:auto;min-width:24px;height:20px;padding:0 7px;border-radius:999px;display:inline-grid;place-items:center;font-size:12px;font-weight:600;background:var(--primary);color:var(--onprimary)}
+.zahl.leise{background:var(--subtle);color:var(--muted);font-weight:400}
+.fuss{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding:0 10px}
+.fuss .lbl{font-size:14px;color:var(--muted)}
+.fuss .ver{font-size:12px;color:var(--muted)}
+.fuss .mail{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fuss .reihe{display:flex;gap:8px}
+.seg{display:flex}
+.seg button{flex:1;height:40px;border:1px solid var(--field-border);background:var(--bg);color:var(--fg);font:inherit;cursor:pointer}
+.seg button+button{margin-left:-1px}
+.seg button:first-child{border-radius:6px 0 0 6px}
+.seg button:last-child{border-radius:0 6px 6px 0}
+.seg button:focus-visible{position:relative;z-index:1}
+.seg button[aria-pressed=true]{background:var(--primary);color:var(--onprimary)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:6px;border:1px solid var(--field-border);background:var(--bg);color:var(--fg);font:500 14px/1 system-ui,sans-serif;text-decoration:none;cursor:pointer;transition:background-color 120ms ease,transform 160ms var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn-p{background:var(--primary);color:var(--onprimary);border-color:var(--primary)}
+.btn[aria-disabled=true]{opacity:.5;cursor:default}
+@media(hover:hover) and (pointer:fine){.it:hover,.btn:hover{background:var(--subtle)}.btn-p:hover{background:var(--primary);opacity:.9}.seg button:hover{background:var(--subtle)}.seg button[aria-pressed=true]:hover{background:var(--primary)}}
+.link{display:inline-flex;align-items:center;min-height:40px;font-size:14px}
+.main{flex:1;min-width:0}
+.kopf{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;height:56px;padding:0 32px;border-bottom:1px solid var(--border);background:var(--bg)}
+.kopf h1{font-size:24px;font-weight:600;line-height:1.3;flex:none}
+.kopf form{margin-left:auto;flex:1;max-width:448px;display:flex}
+.suche{position:relative;width:100%}
+.suche .ic{position:absolute;left:12px;top:12px;color:var(--muted);pointer-events:none}
+.suche input{width:100%;height:40px;padding:0 12px 0 36px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+.suche input::placeholder{color:var(--muted);opacity:1}
+.glocke{flex:none;width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);cursor:pointer}
+.inh{padding:24px 32px 48px;display:flex;flex-direction:column;gap:24px}
+.card{border:1px solid var(--border);border-radius:8px;padding:16px;background:var(--bg)}
+.card h3{font-size:18px;font-weight:600;display:flex;gap:8px;align-items:center}
+.card h3 .ic{color:var(--muted)}
+.weiter{border-color:var(--fg);padding:24px;display:flex;flex-direction:column;gap:8px}
+.weiter.ruhig{border-color:var(--border);flex-direction:row;gap:16px;align-items:flex-start}
+.weiter .lbl{font-size:14px;color:var(--muted)}
+.weiter h2{font-size:18px;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
+.weiter .sub{max-width:65ch;font-size:16px;color:var(--muted)}
+.weiter .aktion{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:8px}
+.ruhig .ic{color:var(--muted);margin-top:2px}
+.ruhig .sub{font-size:14px}
+.ruhig .aktion{margin-top:0}
+.andere{max-width:65ch;display:flex;flex-direction:column;gap:4px}
+.andere summary{display:flex;align-items:center;min-height:40px;cursor:pointer;font-weight:500}
+.andere ul{padding-bottom:8px}
+.andere li{display:flex;flex-wrap:wrap;column-gap:8px;align-items:center;min-height:40px}
+.andere a{display:inline-flex;align-items:center;min-height:40px}
+.andere li span{color:var(--muted)}
+.stats dl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stats dt{font-size:14px;color:var(--muted)}
+.stats dd{font-size:18px;font-weight:600;line-height:1.4}
+.stats small{display:block;font-size:14px;color:var(--muted);font-weight:400}
+.zwei{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
+.spalte{display:flex;flex-direction:column;gap:12px;min-width:0}
+.spalte>h2{font-size:18px;font-weight:600}
+.zeilen li{display:flex;flex-direction:column;padding:10px 0;border-top:1px solid var(--border);overflow-wrap:anywhere}
+.zeilen li:first-child{border-top:0}
+.meta{font-size:14px;color:var(--muted)}
+.d{font-size:12px;color:var(--muted)}
+.kk{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.siegel{display:flex;gap:8px;align-items:flex-start;background:var(--subtle);border-radius:6px;padding:8px 12px;margin:12px 0}
+.siegel .ic{color:var(--ok);margin-top:3px}
+.siegel b{font-weight:500;display:block}
+.k{display:flex;flex-direction:column;gap:8px}
+.k p{color:var(--muted)}
+.mbar{display:none}
+.mbar .zahl{margin-left:0}
+@media(max-width:1023px){.zwei{grid-template-columns:1fr}.stats dl{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:767px){
+ .app{flex-direction:column}
+ .side{display:none}
+ .mbar{display:flex;position:sticky;top:0;z-index:30;align-items:center;justify-content:space-between;height:57px;padding:0 16px;background:var(--side);border-bottom:1px solid var(--border)}
+ .mbar>b{font-size:16px;font-weight:600}
+ .md summary{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:500 16px/1 system-ui,sans-serif;cursor:pointer;list-style:none}
+ .md summary::-webkit-details-marker{display:none}
+ .md .zahl{margin-left:0}
+ .md .i2,.md .t2{display:none}
+ .md[open] .i2,.md[open] .t2{display:inline-block}
+ .md[open] .i1,.md[open] .t1,.md[open] .zahl{display:none}
+ .panel{position:fixed;top:57px;left:0;right:0;bottom:0;z-index:25;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:12px;background:var(--side)}
+ .it{height:44px}
+ .fuss{padding:0 4px}
+ .fuss .mail{display:none}
+ .seg button{height:44px;font-size:16px}
+ .fuss .btn{flex:1}
+ .btn{height:44px;font-size:16px}
+ .link,.andere a,.andere summary{min-height:44px}
+ .andere li{min-height:44px}
+ .kopf{top:57px;padding:0 16px;gap:8px}
+ .suche input{height:44px;font-size:16px}
+ .suche .ic{top:14px}
+ .glocke{width:44px;height:44px}
+ .inh{padding:16px 16px 32px;gap:20px}
+ .weiter{padding:16px}
+ .weiter .aktion .btn{width:100%}
+ .weiter.ruhig{flex-direction:column;gap:8px}
+ .mock{flex-wrap:wrap;gap:4px 12px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<div class="mock"><span>Mockup 01 · Zustand C alles erledigt</span><a href="index.html">Zur Übersicht</a><a href="menue-mobil.html">Mobil ansehen</a></div>
+<div class="app">
+<header class="mbar"><b>Belegt</b>
+<details class="md"><summary><svg class="ic i1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg><svg class="ic i2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg><span class="t1">Menü</span><span class="t2">Schließen</span></summary>
+<div class="panel">
+<nav aria-labelledby="gm-a" class="gruppe"><h2 class="gk" id="gm-a">Arbeiten</h2><a class="it" href="#" aria-current="page"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="txt">Start</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg><span class="txt">Eingang</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg><span class="txt">Archiv</span></a><ul class="ansichten" aria-label="Gespeicherte Ansichten"><li><a class="it" href="#"><span class="txt">Steuer 2026</span><span class="zahl leise"><span class="sr-only">Treffer: </span>4</span></a></li><li><a class="it" href="#"><span class="txt">Rechnungen Material</span><span class="zahl leise"><span class="sr-only">Treffer: </span>27</span></a></li></ul></nav><nav aria-labelledby="gm-e" class="gruppe"><h2 class="gk" id="gm-e">Einrichten</h2><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z"/><path d="M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193"/><circle cx="10.5" cy="6.5" r=".5" fill="currentColor"/></svg><span class="txt">Ordnung</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg><span class="txt">Quellen</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg><span class="txt">Workflows</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="txt">Zugänge</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg><span class="txt">Benachrichtigungen</span></a></nav><nav aria-labelledby="gm-n" class="gruppe"><h2 class="gk" id="gm-n">Nachweise</h2><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></svg><span class="txt">Fristen</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span class="txt">Prüfung</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span class="txt">Verfahrensdokumentation</span></a></nav>
+<div class="fuss"><span class="lbl" id="darstm">Darstellung</span><div class="seg" role="group" aria-labelledby="darstm"><button type="button" data-modus="system" aria-pressed="true">System</button><button type="button" data-modus="light" aria-pressed="false">Hell</button><button type="button" data-modus="dark" aria-pressed="false">Dunkel</button></div><span class="mail">anna@example.org</span><div class="reihe"><a class="btn" href="#">Konto</a><button type="button" class="btn">Abmelden</button></div><span class="ver">Version 0.0.7</span></div>
+</div></details></header>
+<aside id="seitenleiste" class="side">
+<div class="marke"><b>Belegt</b><span>Belegt ist, was du beweisen kannst.</span></div>
+<nav aria-labelledby="g-a" class="gruppe"><h2 class="gk" id="g-a">Arbeiten</h2><a class="it" href="#" aria-current="page"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="txt">Start</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg><span class="txt">Eingang</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg><span class="txt">Archiv</span></a><ul class="ansichten" aria-label="Gespeicherte Ansichten"><li><a class="it" href="#"><span class="txt">Steuer 2026</span><span class="zahl leise"><span class="sr-only">Treffer: </span>4</span></a></li><li><a class="it" href="#"><span class="txt">Rechnungen Material</span><span class="zahl leise"><span class="sr-only">Treffer: </span>27</span></a></li></ul></nav><nav aria-labelledby="g-e" class="gruppe"><h2 class="gk" id="g-e">Einrichten</h2><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z"/><path d="M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193"/><circle cx="10.5" cy="6.5" r=".5" fill="currentColor"/></svg><span class="txt">Ordnung</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg><span class="txt">Quellen</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg><span class="txt">Workflows</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="txt">Zugänge</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg><span class="txt">Benachrichtigungen</span></a></nav><nav aria-labelledby="g-n" class="gruppe"><h2 class="gk" id="g-n">Nachweise</h2><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></svg><span class="txt">Fristen</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span class="txt">Prüfung</span></a><a class="it" href="#"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span class="txt">Verfahrensdokumentation</span></a></nav>
+<div class="fuss"><span class="lbl" id="darst">Darstellung</span><div class="seg" role="group" aria-labelledby="darst"><button type="button" data-modus="system" aria-pressed="true">System</button><button type="button" data-modus="light" aria-pressed="false">Hell</button><button type="button" data-modus="dark" aria-pressed="false">Dunkel</button></div><span class="mail">anna@example.org</span><div class="reihe"><a class="btn" href="#">Konto</a><button type="button" class="btn">Abmelden</button></div><span class="ver">Version 0.0.7</span></div>
+</aside>
+<main id="inhalt" class="main">
+<div class="kopf"><h1>Start</h1>
+<form role="search" onsubmit="return false"><div class="suche"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><label class="sr-only" for="s">Suchen</label><input id="s" type="search" placeholder="Suchen …"></div></form>
+<button type="button" class="glocke" aria-label="Benachrichtigungen"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg></button></div>
+<div class="inh">
+<section class="card weiter ruhig" aria-labelledby="ns"><svg class="ic" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><div><p class="lbl">Nächster Schritt</p><h2 id="ns">Alles erledigt</h2><p class="sub">Im Eingang wartet nichts mehr. Alle 142 Dokumente sind eingeordnet.</p><div class="aktion"><a class="link" href="#">Dokument hochladen</a></div></div></section>
+<section class="card stats" aria-labelledby="ub"><h2 class="sr-only" id="ub">Überblick</h2><dl><div><dt>Dokumente im Archiv</dt><dd>142<small>davon 38 in diesem Jahr</small></dd></div><div><dt>Im Eingang</dt><dd>0<small>alle eingeordnet</small></dd></div><div><dt>Speicher für Originale</dt><dd>15,3 GB<small>frei 129,0 GB von 144,3 GB</small></dd></div><div><dt>Offene Löschanträge</dt><dd>0<small>nichts offen</small></dd></div></dl></section>
+<div class="zwei"><section class="spalte" aria-labelledby="av"><h2 id="av">Aus gespeicherten Ansichten</h2><div class="card"><div class="kk"><h3>Steuer 2026</h3><span class="meta">4 Dokumente</span></div><ul class="zeilen"><li><span>Rechnung HK-2026-1187</span><span class="meta">Holzhandel Kranich GmbH · 23.11.2026</span></li><li><span>Strom Oktober</span><span class="meta">Stadtwerke Musterstadt · 23.11.2026</span></li><li><span>xrechnung-2026-77.xml</span><span class="meta">23.11.2026</span></li></ul><a class="link" href="#">Alle in „Steuer 2026“</a></div></section><section class="spalte" aria-labelledby="z"><h2 id="z">Zustand</h2><section class="card" aria-labelledby="un"><h3 id="un"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Unveränderbarkeit</h3><div class="siegel"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><div><b>Siegel geprüft: alles unverändert</b><span class="d">zuletzt 23.11.2026, 14:22</span></div></div><div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center"><a class="btn" href="#">Jetzt prüfen</a><a class="link" href="#">Zur Prüfung</a></div></section><section class="card k" aria-labelledby="fr"><h3 id="fr"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></svg>Fristen der nächsten 90 Tage</h3><p>0 Dokumente, deren Frist endet.</p></section><section class="card k" aria-labelledby="qu"><h3 id="qu"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>Quellen</h3><p>Buchhaltung, zuletzt abgerufen vor 6 Minuten.</p><a class="link" href="#">Zu den Quellen</a></section><section class="card k" aria-labelledby="bt"><h3 id="bt">Betrieb</h3><p>Datenbank: getrennte Rollen.</p><p>Letzte Sicherung: heute, 03:00.</p></section></section></div>
+</div>
+</main>
+</div>
+<script>
+(function(){var r=document.documentElement,h=location.hash;
+if(/dunkel/.test(h))r.dataset.theme='dark';else if(/hell/.test(h))r.dataset.theme='light';
+if(/iframe/.test(h))r.classList.add('im-rahmen');
+var d=document.querySelector('.md');
+if(/menue/.test(h))d.open=true;
+d.querySelector('.panel').addEventListener('click',function(e){if(e.target.closest('a')){e.preventDefault();d.open=false}});
+document.querySelectorAll('[data-modus]').forEach(function(k){k.addEventListener('click',function(){var m=k.dataset.modus;if(m==='system')delete r.dataset.theme;else r.dataset.theme=m;document.querySelectorAll('[data-modus]').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.modus===m)})})});
+document.querySelectorAll('a[href="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault()})});
+})();
+</script>
+</body>
+</html>

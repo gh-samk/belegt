@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mockups Issue 3, Abschnitt B: Einordnen und Frist</title>
+<style>
+/* Farben 1:1 aus src/styles.css; --field-border ist der Vorschlag aus DESIGN.md */
+:root{--bg:#fff;--side:#fafafa;--subtle:#f4f4f5;--fg:#09090b;--muted:#68686f;--border:#e4e4e7;--primary:#18181b;--onprimary:#fafafa;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;--c-blue:#2563eb;--c-amber:#b45309;--field-border:#85858e;--font:"Geist Variable",Geist,system-ui,sans-serif;color-scheme:light}
+:root[data-theme=dark]{--bg:#09090b;--side:#0c0c0e;--subtle:#18181b;--fg:#fafafa;--muted:#a1a1aa;--border:#27272a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--c-blue:#60a5fa;--c-amber:#fbbf24;--field-border:#71717a;color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#09090b;--side:#0c0c0e;--subtle:#18181b;--fg:#fafafa;--muted:#a1a1aa;--border:#27272a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--c-blue:#60a5fa;--c-amber:#fbbf24;--field-border:#71717a;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--subtle);color:var(--fg);font:14px/1.5 var(--font)}
+h1,h2,h3,p{margin:0}
+a{color:var(--fg);text-decoration:underline;text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+:is(input,select):focus-visible{outline-offset:0;border-color:var(--fg)}
+.ic{width:16px;height:16px;flex:none;margin-top:2px}
+.muted{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Mockup-Rahmen (nicht Teil der App) */
+.kopf{background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;flex-direction:column;gap:12px}
+.kopf h1{font-size:24px;font-weight:600;line-height:1.25}
+.leiste{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.leiste .gruppe{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.leiste .titel{font-weight:600;margin-right:4px}
+.schalter{display:inline-flex;gap:8px;align-items:center;min-height:40px;cursor:pointer}
+.schalter input{width:20px;height:20px;margin:0;accent-color:var(--primary)}
+.notiz{background:var(--subtle);border:1px solid var(--border);border-radius:6px;padding:12px;max-width:80ch}
+.stage{display:flex;gap:24px;align-items:flex-start;padding:24px;overflow-x:auto}
+.stage>section{flex:none}
+.stage h2{font-size:16px;font-weight:600;margin-bottom:8px}
+.frame{background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.frame.d{width:1100px}
+.frame.m{width:390px;font-size:14px}
+.app{display:grid;grid-template-columns:208px minmax(0,1fr);min-height:420px}
+.m .app{display:block;min-height:0}
+.side{background:var(--side);border-right:1px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:12px}
+.mbar{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--side)}
+.bar{display:block;height:12px;border-radius:4px;background:var(--border)}
+.bar:nth-child(odd){width:70%}.bar:nth-child(even){width:50%}
+.main{padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.m .main{padding:16px}
+.grau{opacity:.5;pointer-events:none;user-select:none}
+.doc{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:24px;align-items:start}
+.m .doc{grid-template-columns:minmax(0,1fr)}
+.vorschaubild{border:1px dashed var(--field-border);border-radius:8px;min-height:360px;display:grid;place-items:center;color:var(--muted)}
+.m .vorschaubild{min-height:96px}
+.doc>.card{grid-column:2;grid-row:1}.doc>.vorschaubild{grid-column:1;grid-row:1}
+.m .doc>*{grid-column:1;grid-row:auto}
+
+/* Bausteine der App */
+.card{border:1px solid var(--border);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.card h2{font-size:18px;font-weight:600;line-height:1.3}
+.zeile{display:flex;flex-direction:column;gap:4px;min-width:0}
+.zeile label{font-weight:500}
+.hilfe{color:var(--muted)}
+.feld{display:block;width:100%;height:40px;padding:0 12px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+.feld[aria-invalid=true]{border-color:var(--danger);box-shadow:inset 3px 0 0 var(--danger)}
+.fehler{display:flex;gap:8px;color:var(--danger)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit;font-weight:500;cursor:pointer;touch-action:manipulation;text-decoration:none;transition:background-color 150ms ease-out,transform 160ms ease-out}
+.btn.haupt{background:var(--primary);color:var(--onprimary);border-color:var(--primary)}
+.btn.text{border-color:transparent;background:transparent;text-decoration:underline;text-underline-offset:2px;padding:0 8px}
+.btn:active{transform:scale(.97)}
+@media(hover:hover){.btn:hover{background:var(--subtle)}.btn.haupt:hover{background:var(--primary);opacity:.9}}
+@media(pointer:coarse){.btn,.feld{min-height:44px;height:44px}.btn{height:auto}}
+.m .btn,.m .feld{min-height:44px;font-size:16px}.m .feld{height:44px}
+.knoepfe{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:center}
+.m .knoepfe .btn{flex:1 1 auto}
+.vs{display:flex;gap:8px;padding:12px;border-radius:6px;background:var(--subtle);border:1px solid var(--border);min-height:176px}
+.m .vs{min-height:192px}
+.vs>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.vs strong{font-weight:600}
+.vs.fehl{border-color:var(--danger);min-height:0}.vs.fehl .ic{color:var(--danger)}
+.hinweis{display:flex;gap:8px;color:var(--muted)}
+.lang{overflow-wrap:anywhere}
+dl.erg{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:8px 16px;margin:0}
+.m dl.erg{grid-template-columns:minmax(0,1fr);gap:0}.m dl.erg dd{margin-bottom:12px}
+dl.erg dt{color:var(--muted)}dl.erg dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+table{border-collapse:collapse;width:100%;max-width:900px;background:var(--bg)}
+th,td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+th{background:var(--subtle);font-weight:600}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+
+/* „neu“ markieren: Etikett (Text) plus Rahmenlinie */
+.neu-e{visibility:hidden;display:inline-block;font-size:12px;font-weight:500;line-height:18px;padding:0 6px;border:1px solid var(--muted);border-radius:4px;color:var(--muted);margin-right:8px;vertical-align:middle;background:var(--bg)}
+.hl .neu-e{visibility:visible}
+.neu{position:relative;margin-top:24px}
+.neu>.neu-e:first-child{position:absolute;bottom:100%;left:0;margin:0 0 4px}
+.hl .neu{box-shadow:0 0 0 3px var(--bg),0 0 0 4px var(--muted)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.rz{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap}
+.status{display:flex;gap:8px;align-items:flex-start;padding:12px;border-radius:6px;background:var(--subtle);border:1px solid var(--border);min-height:48px}
+.fok{outline:2px solid var(--fg);outline-offset:2px}
+.zaehler{display:flex;align-items:center;gap:16px}
+.m .zaehler{flex-direction:column;align-items:stretch;gap:8px;width:100%}
+h1.seite{font-size:24px;font-weight:600;line-height:1.25}
+.leer{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:48px 16px;border:1px dashed var(--field-border);border-radius:8px}
+.leer .rund{width:48px;height:48px;border-radius:50%;background:var(--subtle);border:1px solid var(--border);display:grid;place-items:center}
+.leer .rund .ic{width:24px;height:24px;margin:0}
+.leer .gross{font-size:18px;font-weight:600}
+.m .leer .btn{align-self:stretch}
+.tabelle{padding:0 24px 32px}
+.tabelle h2{font-size:18px;font-weight:600;margin-bottom:8px}
+.btn[aria-pressed=true]{background:var(--subtle);border-color:var(--fg);font-weight:600}
+.lk{display:inline-flex;align-items:center;min-height:24px;padding:0 4px;margin-left:-4px}
+.m .lk{min-height:44px}
+.schalter:has(:disabled){opacity:.5}
+
+.inhalt{padding:24px;max-width:960px;display:flex;flex-direction:column;gap:32px}
+.inhalt h2{font-size:18px;font-weight:600;margin-bottom:8px}
+.inhalt ul,.inhalt ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.inhalt p,.inhalt li{max-width:80ch}
+code{font-family:ui-monospace,Menlo,monospace;font-size:14px;overflow-wrap:anywhere}
+.inhalt section{min-width:0;overflow-x:auto}
+</style>
+</head>
+<body>
+<header class="kopf">
+  <h1>Einordnen und Frist: Mockups zu Issue 3, Abschnitt B</h1>
+  <p class="muted">Nur Mockup, kein Produktivcode. Stand der Beschreibung: Upstream main (v0.0.7).</p>
+  <div class="leiste">
+    <span class="gruppe" role="group" aria-label="Darstellung"><span class="titel">Darstellung</span>
+      <button type="button" class="btn" data-theme-set="light" aria-pressed="false">Hell</button>
+      <button type="button" class="btn" data-theme-set="dark" aria-pressed="false">Dunkel</button>
+      <button type="button" class="btn" data-theme-set="geraet" aria-pressed="true">Gerät</button></span>
+  </div>
+</header>
+<main class="inhalt">
+<section aria-labelledby="a0" tabindex="0" role="region" aria-label="Die Mockups"><h2 id="a0">Die Mockups</h2>
+  <ul>
+    <li><a href="1-frist-vorschau.html">1-frist-vorschau.html</a>: Zustände ① bis ⑥, die Folgen vor dem Einordnen (Fristvorschau, Beispiel je Art, Vorgabe, Fehler).</li>
+    <li><a href="2-einordnen-weiter.html">2-einordnen-weiter.html</a>: Zustände ⑦ und ⑧, „Einordnen &amp; weiter“, „Noch N offen“, Position, Abschluss, Herkunft des „Zurück“-Links.</li>
+  </ul>
+  <p class="muted" style="margin-top:8px">In beiden Dateien sind alle Änderungen mit dem Etikett „neu“ markiert; „Änderungen hervorheben“ blendet Etikett und Rahmenlinie aus. Grau und nicht bedienbar ist, was sich nicht ändert.</p>
+</section>
+
+<section aria-labelledby="a1" tabindex="0" role="region" aria-label="Heute und neu"><h2 id="a1">Heute und neu</h2>
+<table><thead><tr><th scope="col">Stelle</th><th scope="col">Heute</th><th scope="col">Neu</th></tr></thead><tbody>
+<tr><th scope="row">Frist</th><td>Erst nach dem Speichern sichtbar (Zeile „Frist“).</td><td>Live-Vorschau unter dem Formular: „Wird aufbewahrt bis 31.12.2034, vorher nicht löschbar.“</td></tr>
+<tr><th scope="row">Art</th><td>Auswahl mit 7 Arten, ohne Erklärung.</td><td>Ein Alltagssatz mit Beispiel direkt unter der Auswahl; Vorgabe vom Dokumenttyp gekennzeichnet, Abweichung ruhig benannt.</td></tr>
+<tr><th scope="row">Fehler der Vorschau</th><td>Gibt es nicht.</td><td>Meldung in drei Teilen in der Vorschau; „Erneut versuchen“; Einordnen bleibt möglich.</td></tr>
+<tr><th scope="row">Nach „Einordnen &amp; weiter“</th><td>Springt zum nächsten Dokument der Liste; ohne Liste bleibt man ohne Knopf zum nächsten offenen auf dem Dokument.</td><td>Karte bleibt mit Ergebnis, Hauptknopf „Nächstes Dokument einordnen“ (nächstes offenes), Zweitlink „Dokument ansehen“, Statusmeldung „Eingeordnet. Noch 14 offen.“ Im Schnellmodus geht es wie heute automatisch weiter, die Meldung steht oben im nächsten Dokument.</td></tr>
+<tr><th scope="row">Eingang</th><td>Kein Zähler; nach dem letzten Dokument „Eingang ist leer“.</td><td>„Noch 15 offen“ neben „Schnell einordnen“; „Position 3 von 15“ am Dokument; am Ende „Alles eingeordnet.“ mit einem Knopf „Zum Archiv“.</td></tr>
+<tr><th scope="row">„Zurück“-Link</th><td>Immer „Zurück zum Archiv“, Ziel stimmt schon.</td><td>Wort nach Herkunft: Eingang, Archiv oder Suche (Tabelle in Datei 2).</td></tr>
+</tbody></table></section>
+
+<section aria-labelledby="a2" tabindex="0" role="region" aria-label="Die kleine Server-Abfrage für die Vorschau"><h2 id="a2">Die kleine Server-Abfrage für die Vorschau</h2>
+<p>Die Vorschau ist nur ein Text. Der Browser rechnet nichts aus: Die Rechnung kommt immer vom Server, mit derselben Funktion, die auch beim Speichern rechnet (<code>shared/fristen.ts</code>). Vorlagen (<code>bisNachMonaten</code>) füllen das Datum wie heute im Browser; erst das Datum selbst wird abgefragt.</p>
+<ul>
+<li><strong>Route:</strong> eigene GET-Route, nur Lesen. Gleiche Rechte wie Einordnen (Mitarbeiter und Inhaber). Kein Eintrag im Audit. Kein Cache wird angenommen.</li>
+<li><strong>Eingaben:</strong> <code>art</code> (eine der sieben Arten), <code>entstanden</code> (JJJJ-MM-TT), <code>freiwilligBis</code> (JJJJ-MM-TT, nur bei „freiwillig“).</li>
+<li><strong>Was der Server selbst kennt:</strong> die Einstellung „aufsicht“ (Kredit-, Wertpapier- oder Versicherungsaufsicht: Buchungsbelege 10 statt 8 Jahre). Sie kommt nie vom Browser.</li>
+<li><strong>Antwort:</strong> <code>bis</code> (JJJJ-MM-TT oder null), <code>grund</code> (<code>gesetz</code>, <code>freiwillig</code> oder <code>keine</code>), <code>jahre</code> (Zahl oder null), dazu ein Schlüssel für den kurzen Grundlagen-Text (zum Beispiel „§ 147 AO“; der Text steht in Paraglide, nicht im Server).</li>
+<li><strong>Fehler:</strong> ungültiges Datum, „freiwillig“ ohne Datum und Datum vor der Entstehung ergeben 400 mit Meldungstext (erscheint als Feldfehler, Zustand ④). Ist der Server nicht erreichbar, erscheint Zustand ⑥.</li>
+<li><strong>Zeitpunkt:</strong> Abfrage 300 ms nach der letzten Eingabe oder Auswahl. Kein Datum bei „freiwillig“: keine Abfrage, die Vorschau bleibt neutral. Meldungstexte bei ungültigem Datum liefert der Server (400); die Texte in den Mockups sind Beispiele.</li>
+<li><strong>Jahresrechnung (nach <code>docs/fristen.md</code>):</strong> Frist beginnt am Ende des Entstehungsjahres, hier 2026.</li>
+</ul>
+<table style="margin-top:12px"><thead><tr><th scope="col">Art</th><th scope="col">Jahre</th><th scope="col">Entstanden</th><th scope="col">Aufbewahren bis</th></tr></thead><tbody>
+<tr><td>Buchungsbelege</td><td>8 (10 mit Aufsicht)</td><td>12.03.2026</td><td>31.12.2034 (31.12.2036)</td></tr>
+<tr><td>Handels- und Geschäftsbriefe</td><td>6</td><td>12.03.2026</td><td>31.12.2032</td></tr>
+<tr><td>Bücher, Aufzeichnungen, Abschlüsse</td><td>10</td><td>12.03.2026</td><td>31.12.2036</td></tr>
+<tr><td>Unterlagen zum Zoll</td><td>10</td><td>12.03.2026</td><td>31.12.2036</td></tr>
+<tr><td>Sonstige steuerlich bedeutsame Unterlagen</td><td>6</td><td>12.03.2026</td><td>31.12.2032</td></tr>
+<tr><td>Freiwillig mit Frist</td><td>–</td><td>12.03.2026</td><td>gewählter Tag (nicht vor Entstehung)</td></tr>
+<tr><td>Frei</td><td>–</td><td>12.03.2026</td><td>keine</td></tr>
+</tbody></table></section>
+
+<section aria-labelledby="a3" tabindex="0" role="region" aria-label="Welche Daten „Noch N offen“ braucht"><h2 id="a3">Welche Daten „Noch N offen“ braucht</h2>
+<p>Die Anzahl der Dokumente, die noch nicht eingeordnet sind. Das ist schon heute die Länge der Eingangsliste beziehungsweise des Filters „offen“. Eine neue Server-Funktion ist nur nötig, wenn die Liste ihre Gesamtzahl nicht liefert (Frage an den Maintainer). Nach dem Einordnen sinkt die Zahl um 1: „Noch 14 offen“ kommt aus der neu geladenen Liste, nicht aus einer Rechnung im Browser. <strong>Eine Zählbasis:</strong> Alle Zahlen zählen offene Dokumente. „3 von 15“ ist der Platz unter den offenen und steht nur auf einem noch offenen Dokument; „Noch 14 offen“ steht nach dem Einordnen (es zählt das gerade angezeigte nächste Dokument mit). Beide stehen nie zugleich.</p></section>
+
+<section aria-labelledby="a4" tabindex="0" role="region" aria-label="Angewendete UX-Gesetze"><h2 id="a4">Angewendete UX-Gesetze (ux-laws)</h2>
+<ul>
+<li><strong>Hick:</strong> Die sieben Arten bleiben sieben; Hilfe ist ein Satz am Feld, kein zusätzliches Menü. Selten Gebrauchtes (Bücher, Zoll) bekommt dieselbe kurze Länge, nichts mehr. Datei 1, Art-Feld.</li>
+<li><strong>Miller und Proximity:</strong> Die Vorschau hat höchstens drei kurze Zeilen und steht direkt über den Knöpfen, die Folge neben der Handlung. Das Beispiel steht direkt unter „Art“, der Feldfehler direkt unter dem Datum. Datei 1, ①–④.</li>
+<li><strong>Jakob:</strong> Native Auswahl- und Datumsfelder, „Zurück“ benennt, wohin man geht (Eingang, Archiv, Suche). Datei 2, Tabelle.</li>
+<li><strong>Fitts:</strong> Knöpfe 40 px (44 px bei Touch und im 390er Rahmen), Hauptaktion als letzter Knopf rechts, am Handy füllen Knöpfe die Breite. Beide Dateien.</li>
+<li><strong>Tesler:</strong> Die Komplexität der Fristregeln trägt der Server. Der Mensch sieht nur das Ergebnis; Vorgabe-Art und Vorlage nehmen Arbeit ab. Datei 1, ①, ④.</li>
+<li><strong>Doherty:</strong> 300 ms Pause beim Tippen, Ladezustand mit fester Höhe, kein Springen. Rückmeldung nach dem Einordnen sofort. Datei 1 (Schalter „Vorschau lädt“), Datei 2 ⑦.</li>
+<li><strong>Peak-End:</strong> Das Ende der Arbeit ist ein ruhiger Abschluss („Alles eingeordnet.“), unterwegs zeigt „Noch 14 offen“ den Fortschritt. Datei 2, ⑦ und ⑧.</li>
+<li><strong>von Restorff:</strong> Pro Ansicht nur ein Haupt-Knopf; die Vorschau ist die einzige getönte Fläche in der Karte; die Fehlermeldung bekommt zusätzlich einen Rand. Beide Dateien.</li>
+<li><strong>Serial Position:</strong> Hauptaktion zuletzt; die Vorgabe „Buchungsbelege“ steht an erster Stelle der Auswahl; das Ergebnis steht am Ende. Zielkonflikt Hick gegen Vollständigkeit: „Dokument ansehen“ ist nur ein Link.</li>
+</ul></section>
+
+<section aria-labelledby="a5" tabindex="0" role="region" aria-label="Angewendete Regeln"><h2 id="a5">Angewendete Regeln (ui-ux-pro-max und emil-design-eng)</h2>
+<ul>
+<li><strong>color-not-only, color-semantic, color-dark-mode:</strong> Fehler tragen Symbol und Text; Tokens aus <code>styles.css</code> in Hell und Dunkel; ⑧ ohne --ok (keine Prüfung).</li>
+<li><strong>aria-live-errors, toast-accessibility, error-recovery, error-clarity:</strong> Zustand ⑥ role=alert mit drei Teilen und „Erneut versuchen“; Statusmeldungen role=status ohne Fokusraub (Ausnahme ⑦ Karte: Fokus bewusst auf der Meldung).</li>
+<li><strong>content-jumping, loading-states:</strong> Vorschau-Zeile mit fester Höhe (144 px, am Handy 152 px); nur der Fehler darf sie vergrößern.</li>
+<li><strong>focus-states, touch-target-size, touch-spacing:</strong> Ring 2 px --fg, Abstand 8 px, Ziele mindestens 40 px.</li>
+<li><strong>inline-validation, input-helper-text, error-placement:</strong> Fehler erst nach Berühren des Datums oder nach Einordnen; Beispielsatz als Hilfetext mit aria-describedby.</li>
+<li><strong>empty-states, primary-action:</strong> ⑧ ein Satz, ein Knopf, ein Link.</li>
+<li><strong>no-emoji-icons, icon-style-consistent:</strong> Lucide-Pfade, 16 px, Strich 2, einfarbig.</li>
+<li><strong>reduced-motion, emil (keine Animation bei häufigen Handlungen):</strong> Es gibt nur Farbwechsel (150 ms) und Druck-Skalierung 0,97 (160 ms); keine Bewegung beim Wechsel der Vorschau, <code>prefers-reduced-motion</code> schaltet alles ab. Nichts blinkt.</li>
+<li><strong>horizontal-scroll, readable-font-size:</strong> 390er Rahmen ohne seitliches Scrollen, Felder und Knöpfe dort 16 px.</li>
+</ul></section>
+
+<section aria-labelledby="a6" tabindex="0" role="region" aria-label="Abweichungen von DESIGN.md"><h2 id="a6">Abweichungen von DESIGN.md</h2>
+<ul>
+<li>Felder nutzen <code>--field-border</code> (Vorschlag, noch nicht in <code>styles.css</code>). Die Werte stehen in den Mockups inline: hell #85858e, dunkel #71717a.</li>
+<li>Knopfreihenfolge nach Vorschlag in DESIGN.md: „Einordnen & weiter“ vor „Einordnen“ (Hauptaktion letzter Knopf). Heute steht „Einordnen“ zuerst.</li>
+<li>Knopfhöhe 40/44 px (<code>--control-h</code>, Vorschlag), Schrift 12/14/16/18/24 (Vorschlag).</li>
+<li>Der Rahmen der Mockups (Kopf, Umschalter) ist kein Teil der App.</li>
+</ul></section>
+
+<section aria-labelledby="a7" tabindex="0" role="region" aria-label="Offene Fragen an den Maintainer"><h2 id="a7">Offene Fragen an den Maintainer</h2>
+<ol>
+<li>Soll „15 Dokumente heute eingeordnet“ erscheinen? Dazu müsste der Server die Zahl liefern (Audit nach Tag?). Ohne Zahl bleibt „Alles eingeordnet.“ allein.</li>
+<li>Liefert die Eingangsliste ihre Gesamtzahl? Wenn nicht: eine kleine Zähl-Abfrage oder die Zahl aus dem Filter „offen“.</li>
+<li>Wie lange bleibt „Eingeordnet. Noch 14 offen.“ im Schnellmodus stehen? Vorschlag: bis zur nächsten Aktion, nicht unter 10 Sekunden, kein automatisches Verschwinden davor.</li>
+<li>Braucht die Vorschau bei Pflicht-Arten überhaupt eine Abfrage, oder dürfen die Jahre der Arten im Client stehen? DESIGN sagt: Der Server rechnet. Der Preis ist eine Abfrage bei jeder Auswahl; der Gewinn eine Rechnung an einer Stelle (auch die Servereinstellung „aufsicht“ steht nur dort).</li>
+<li>Bei „frei“: auch eine Abfrage (Antwort <code>grund: keine</code>) oder ein Text im Browser? Die Mockups unterstellen: Abfrage, damit es genau eine Quelle gibt.</li>
+<li>Bücher: Das Feld heißt „Entstanden, empfangen oder abgesandt am“, bei Büchern zählt der Tag der letzten Eintragung (siehe <code>fristen.ts</code>). Soll die Hilfe das bei dieser Art sagen?</li>
+<li>Position „3 von 15“: Zählt sie die offenen Dokumente (Annahme der Mockups) oder die geladene Liste?</li>
+<li>Der Link „Mehr zu Fristen“ zeigt auf die veröffentlichte Doku-Seite „Fristen“ (wie die anderen Doku-Links), nicht auf die App-Seite „Fristen“. Recht so?</li>
+<li>Ist die Pfeil-Navigation (← →) in ⑦ von der Änderung betroffen, wenn das nächste offene Dokument nicht das nächste der Liste ist?</li>
+</ol></section>
+</main>
+<script>
+document.querySelectorAll('[data-theme-set]').forEach(b=>b.onclick=()=>{const v=b.dataset.themeSet,r=document.documentElement;v==='geraet'?r.removeAttribute('data-theme'):r.setAttribute('data-theme',v);document.querySelectorAll('[data-theme-set]').forEach(x=>x.setAttribute('aria-pressed',x===b));});
+</script>
+</body>
+</html>

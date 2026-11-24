@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fehler · Quellen · Belegt (Mockup)</title>
+<script>(function(){var q=new URLSearchParams(location.search),t=q.get('theme'),r=document.documentElement;if(t==='light'||t==='dark')r.setAttribute('data-theme',t);if(self!==top)r.classList.add('embedded')})()</script>
+<style>
+:root{--bg:#fff;--side:#fafafa;--fg:#09090b;--muted:#68686f;--subtle:#f4f4f5;--border:#e4e4e7;--primary:#18181b;--onprimary:#fafafa;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;--field-border:#85858e;--control-h:40px;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#09090b;--side:#0c0c0e;--fg:#fafafa;--muted:#a1a1aa;--subtle:#18181b;--border:#27272a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--field-border:#71717a;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#09090b;--side:#0c0c0e;--fg:#fafafa;--muted:#a1a1aa;--subtle:#18181b;--border:#27272a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--field-border:#71717a;color-scheme:dark}
+@media(pointer:coarse),(max-width:1024px){:root{--control-h:44px}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 14px/1.5 "Geist Variable",system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:72px}
+h1,h2,h3,p{margin:0}
+a{color:var(--fg);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+input:focus-visible,select:focus-visible{outline-offset:0;border-color:var(--fg)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:8px;top:-60px;background:var(--bg);border:1px solid var(--field-border);padding:8px 12px;border-radius:6px;z-index:50}
+.skip:focus{top:8px}
+.muted{color:var(--muted)}
+svg.i{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+.side{background:var(--side);border-right:1px solid var(--border);padding:16px 12px;display:flex;flex-direction:column;gap:16px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-weight:600;font-size:16px;padding:4px 8px}
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side nav a{display:flex;align-items:center;min-height:var(--control-h);padding:0 8px;border-radius:6px;text-decoration:none;color:var(--muted)}
+.side nav a:hover{background:var(--subtle)}
+.side nav a[aria-current=page]{background:var(--subtle);color:var(--fg);font-weight:500}
+.side .unten{margin-top:auto}
+.topbar{display:none}
+.kopf{height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px}
+.kopf h1{font-size:24px;font-weight:600;line-height:1.2}
+.inhalt{max-width:880px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);overflow-x:auto}
+.tabs a{display:flex;align-items:center;min-height:var(--control-h);padding:0 12px;color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs a[aria-current=page]{color:var(--fg);border-bottom-color:var(--fg);font-weight:500}
+.karte{display:flex;flex-direction:column;gap:12px;border:1px solid var(--border);border-radius:8px;padding:16px}
+.karte>h2{font-size:18px;font-weight:600;line-height:1.3}
+.karte .hilfe-text,.karte>p.muted{font-size:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:var(--control-h);padding:0 16px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font-family:inherit;font-size:14px;font-weight:500;line-height:1.25;text-decoration:none;cursor:pointer;touch-action:manipulation;transition:background-color .15s ease,transform .16s ease-out}
+.btn:disabled{opacity:.5;cursor:default}
+.btn-primary{background:var(--primary);border-color:var(--primary);color:var(--onprimary)}
+.btn-danger{border-color:var(--danger);color:var(--danger)}
+@media(hover:hover) and (pointer:fine){.btn:not(:disabled):hover{background:var(--subtle)}.btn-primary:not(:disabled):hover{background:var(--primary);opacity:.9}}
+.btn:not(:disabled):active{transform:scale(.97)}
+.knoepfe{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+.liste{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.eintrag{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--border);border-radius:8px;padding:12px}
+.eintrag>.text{display:flex;flex-direction:column;min-width:0;overflow-wrap:anywhere}
+.eintrag .titel{font-weight:500}
+.eintrag .aktionen{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+.assistent{display:flex;flex-direction:column;gap:16px;border:1px solid var(--border);border-radius:6px;background:var(--subtle);padding:16px}
+.ass-kopf{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
+.ass-kopf .name{font-weight:500}
+.schritt{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.punkte{display:flex;gap:4px}.punkte i{width:24px;height:4px;border-radius:2px;background:var(--border);border:1px solid var(--field-border)}.punkte i.an{background:var(--fg);border-color:var(--fg)}
+.assistent h3{font-size:18px;font-weight:600;line-height:1.3}
+.dienste{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.dienst{display:flex;flex-direction:column;gap:6px;min-height:112px;height:100%;padding:16px;border:1px solid var(--field-border);border-radius:8px;background:var(--bg);text-decoration:none;transition:background-color .15s ease,transform .16s ease-out}
+.dienst:active{transform:scale(.98)}
+@media(hover:hover) and (pointer:fine){.dienst:hover{background:var(--subtle)}}
+.dienst .zeile{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:16px;font-weight:600}
+.dienst .marke{align-self:flex-start;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;color:var(--muted)}
+.zurueck{display:inline-flex;align-items:center;gap:8px;min-height:var(--control-h);align-self:flex-start;color:var(--muted)}
+.felder[hidden]{display:none}
+.felder{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.feld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.feld.breit{grid-column:1/-1}
+.feld label{font-weight:500}
+input[type=text],input[type=password],input[type=number],select{width:100%;min-height:var(--control-h);padding:0 12px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit;font-family:inherit}
+input::placeholder{color:var(--muted);opacity:1}
+input[aria-invalid=true]{border-color:var(--danger)}
+.hilfe{color:var(--muted);overflow-wrap:anywhere}
+.fehler-feld{display:flex;gap:6px;align-items:flex-start;color:var(--danger);font-weight:500}
+.fehler-feld svg{margin-top:3px}
+.haken{display:flex;align-items:center;gap:12px;min-height:var(--control-h);font-weight:500}
+input[type=checkbox]{appearance:none;width:20px;height:20px;margin:0;flex:none;border:1px solid var(--primary);border-radius:4px;background:var(--bg);display:inline-grid;place-content:center;cursor:pointer}
+input[type=checkbox]:checked{background:var(--primary)}
+input[type=checkbox]:checked::before{content:"";width:12px;height:12px;background:var(--onprimary);clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0%,43% 62%)}
+details>summary{display:flex;align-items:center;gap:8px;min-height:var(--control-h);cursor:pointer;font-weight:500;list-style:none}
+details>summary::-webkit-details-marker{display:none}
+details>summary svg{transition:transform .16s ease-out}
+details[open]>summary svg{transform:rotate(90deg)}
+.erweitert{border-top:1px solid var(--border);padding-top:4px}
+.erweitert .felder{padding:8px 0 4px}
+pre{margin:0;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--subtle);border:1px solid var(--border);border-radius:4px;padding:1px 6px;overflow-wrap:anywhere}
+.meldung{display:flex;flex-direction:column;gap:12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);padding:16px}
+.meldung.fehler{border-color:var(--danger)}
+.meldung .kopfzeile{display:flex;gap:10px;align-items:flex-start;font-size:16px;font-weight:600}
+.meldung .kopfzeile svg{width:20px;height:20px;margin-top:2px}
+.meldung.ok .kopfzeile svg{color:var(--ok)}.meldung.fehler .kopfzeile svg{color:var(--danger)}
+.meldung .teil{display:block}
+.meldung .teil b{display:block;font-weight:600}
+.zusammen{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0}
+.zusammen dt{color:var(--muted)}.zusammen dd{margin:0;overflow-wrap:anywhere}
+.leer{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:32px 16px;border:1px solid var(--border);border-radius:8px;background:var(--subtle)}
+.leer .ikon{display:grid;place-items:center;width:48px;height:48px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--muted)}
+.leer .ikon svg{width:24px;height:24px}
+.leer .satz{font-size:16px;font-weight:600}
+.leer p.muted{max-width:48ch}
+.warnung{display:flex;gap:12px;border:1px solid var(--warn);border-radius:8px;background:var(--subtle);padding:12px 16px}
+.warnung svg{color:var(--warn);margin-top:3px}
+.schritte{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.sch{display:flex;flex-direction:column;gap:8px;border:1px solid var(--border);border-radius:8px;padding:16px}
+.sch-kopf{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 12px}
+.sch-kopf h3{font-size:16px;font-weight:600}
+.zustand{display:inline-flex;align-items:center;gap:6px;font-weight:500;border:1px solid var(--border);border-radius:6px;padding:2px 8px}
+.zustand.fertig svg{color:var(--ok)}.zustand.offen{color:var(--muted)}
+.sch ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.anm{border:1px dashed var(--field-border);border-radius:8px;padding:12px 16px;color:var(--muted)}
+.anm b{color:var(--fg)}
+.mockbar{position:fixed;right:12px;bottom:12px;display:flex;align-items:center;gap:4px;background:var(--bg);border:1px solid var(--field-border);border-radius:8px;padding:4px;z-index:40}
+.mockbar button{min-height:var(--control-h);padding:0 12px;border:0;border-radius:6px;background:transparent;color:var(--fg);font:inherit;font-weight:500;cursor:pointer}
+.mockbar button[aria-pressed=true]{background:var(--primary);color:var(--onprimary)}
+.embedded .mockbar,.embedded .anm,.embedded .skip{display:none}
+.embedded body{padding-bottom:16px}
+@media(max-width:767px){
+ :root{--control-h:44px}
+ body{font-size:14px}
+ .app{display:block}
+ .topbar{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 16px;border-bottom:1px solid var(--border);background:var(--side);position:sticky;top:0;z-index:30}
+ .side{display:none;position:static;height:auto;border-right:0;border-bottom:1px solid var(--border)}
+ .side.offen{display:flex}
+ .side .brand{display:none}
+ .kopf{padding:0 16px}.kopf h1{font-size:24px}
+ .inhalt{padding:16px}
+ input[type=text],input[type=password],input[type=number],select{font-size:16px}
+ .felder{grid-template-columns:1fr}
+ .btn{font-size:16px}
+ .knoepfe .btn{flex:1 1 auto}
+ .zusammen{grid-template-columns:1fr}
+ .inhalt p a,.inhalt li a:not(.dienst),.inhalt .anm a{display:inline-flex;align-items:center;min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body data-weiter="04-erfolg.html">
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+<div class="app">
+<header class="topbar"><span class="brand">Belegt</span><button class="btn" id="menue" type="button" aria-expanded="false" aria-controls="nav">Menü</button></header>
+<aside class="side" id="nav">
+<span class="brand">Belegt</span>
+<nav aria-label="Hauptnavigation"><a href="#">Start</a><a href="#">Eingang</a><a href="#">Archiv</a><a href="#">Ordnung</a><a href="#">Fristen</a><a href="#">Prüfung</a><a href="#" aria-current="page">Quellen</a><a href="#">Workflows</a><a href="#">Verfahrensdoku</a></nav>
+<nav class="unten" aria-label="Konto und Einstellungen"><a href="#">Zugänge</a><a href="#">Benachrichtigungen</a><a href="#">Konto</a></nav>
+</aside>
+<main id="inhalt">
+<div class="kopf"><h1>Quellen</h1></div>
+<div class="inhalt">
+<p class="muted">Woher Belegt Dokumente holt: aus Postfächern, vom Scanner und aus anderen Systemen.</p>
+<nav class="tabs" aria-label="Bereiche der Quellen"><a href="01-dienstwahl.html" aria-current="page">Postfächer</a><a href="07-scanner.html">Scannen</a><a href="#">Umzug</a><a href="#">Schnittstelle</a></nav>
+<section class="karte" aria-labelledby="postfaecher">
+<h2 id="postfaecher">Postfächer</h2>
+<p class="muted">Belegt holt neue Mails per IMAP oder JMAP ab, alle paar Minuten im Hintergrund. Im Postfach ändert es nur, was du als Aktion nach dem Abholen einstellst. Das Passwort liegt verschlüsselt in der Datenbank.</p>
+<ul class="liste"><li class="eintrag"><span class="text"><span class="titel">Buchhaltung · IMAP · buchhaltung@imap.example.de:993/INBOX</span><span class="muted">Zuletzt: 24.11.2026, 08:15</span></span>
+<button class="btn" type="button">Jetzt abrufen</button>
+<div class="aktionen"><button class="btn btn-danger" type="button" aria-label="Postfach „Buchhaltung“ entfernen">Entfernen</button><button class="btn" type="button" aria-label="Postfach „Buchhaltung“ ändern">Ändern</button></div></li></ul>
+<div class="assistent" role="group" aria-label="Postfach anbinden">
+<div class="ass-kopf"><span class="name">Postfach anbinden</span><p class="schritt"><span class="punkte" aria-hidden="true"><i class="an"></i><i class="an"></i></span><span>Schritt 2 von 2</span></p></div>
+<a class="zurueck" href="01-dienstwahl.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>Anderen Dienst wählen</a>
+<h3 id="titel2">Zugangsdaten für dein Postfach</h3>
+<p class="muted">Alle Felder müssen ausgefüllt sein. Nicht sicher, was du eintragen sollst? <a href="https://github.com/Speicherstadt/belegt/blob/main/docs/eingang.md">Anleitung zu den Feldern (docs/eingang.md)</a>.</p>
+<form id="form">
+<div class="meldung fehler" role="alert" style="margin-bottom:16px">
+<p class="kopfzeile"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg><span>Der Server hat die Anmeldung abgelehnt.</span></p>
+<p class="teil"><b>Was bleibt sicher?</b>Es wurde nichts angelegt, geändert oder gelöscht. Das Passwort wurde nicht gespeichert.</p>
+<p class="teil"><b>Was kannst du tun?</b>Gib das Passwort noch einmal ein und teste dann erneut. Bei Google, iCloud, Yahoo und mit Zwei-Faktor brauchst du ein App-Passwort. Mehr dazu: <a href="https://github.com/Speicherstadt/belegt/blob/main/docs/eingang.md">Anleitung zu den Feldern (docs/eingang.md)</a>.</p>
+<details><summary><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>Details</summary>
+<pre>A2 NO [AUTHENTICATIONFAILED] Invalid credentials (Failure)
+Server: imap.example.de:993 (TLS)</pre></details>
+<div class="knoepfe" style="justify-content:flex-start"><button class="btn" type="button" id="zumpw">Passwort neu eingeben</button></div>
+</div>
+<div class="felder">
+<div class="feld"><label for="f-name">Name</label>
+<input id="f-name" name="name" type="text" required placeholder="" value="Rechnungen" aria-describedby="h-name" autocomplete="off">
+<p class="hilfe" id="h-name">So heißt das Postfach in Belegt.</p></div>
+<div class="feld"><label for="f-host">Server</label>
+<input id="f-host" name="host" type="text" required placeholder="" value="imap.example.de" aria-describedby="h-host" autocomplete="off" inputmode="url">
+<p class="hilfe" id="h-host">Steht in der Anleitung deines Anbieters unter „IMAP“ oder „Posteingangsserver“.</p></div>
+<div class="feld"><label for="f-benutzer">Benutzer</label>
+<input id="f-benutzer" name="benutzer" type="text" required placeholder="" value="rechnungen@example.de" aria-describedby="h-benutzer" autocomplete="off">
+<p class="hilfe" id="h-benutzer">Meist deine E-Mail-Adresse.</p></div>
+<div class="feld"><label for="f-passwort">Passwort</label>
+<input id="f-passwort" name="passwort" type="password" required placeholder="" value="" aria-describedby="h-passwort e-passwort" aria-invalid="true" autocomplete="new-password" autofocus>
+<p class="hilfe" id="h-passwort">Wird verschlüsselt gespeichert und nie angezeigt. Bei Google, iCloud, Yahoo und mit Zwei-Faktor brauchst du ein <b>App-Passwort</b>, nicht dein normales.</p><p class="fehler-feld" id="e-passwort"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg><span>Benutzer oder Passwort stimmen nicht.</span></p></div>
+<div class="feld"><label for="f-ordner">Ordner</label>
+<input id="f-ordner" name="ordner" type="text" required placeholder="" value="INBOX" aria-describedby="h-ordner" autocomplete="off">
+<p class="hilfe" id="h-ordner">Aus diesem Ordner holt Belegt die Mails. INBOX ist der Posteingang.</p></div>
+</div>
+<details class="erweitert">
+<summary><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>Erweitert: Art, Port und TLS</summary>
+<div class="felder">
+<div class="feld"><label for="f-art">Art</label>
+<select id="f-art" name="art" aria-describedby="h-art" onchange="document.getElementById('f-port').value=this.value==='jmap'?443:993"><option value="imap">IMAP</option><option value="jmap">JMAP</option></select>
+<p class="hilfe" id="h-art">IMAP passt fast immer. JMAP nur, wenn dein Anbieter es nennt (etwa Fastmail oder Stalwart).</p></div>
+<div class="feld"><label for="f-port">Port</label>
+<input id="f-port" name="port" type="number" min="1" max="65535" required value="993" inputmode="numeric" aria-describedby="h-port">
+<p class="hilfe" id="h-port">IMAP: 993, JMAP: 443. Ändert sich mit der Art.</p></div>
+<div class="feld breit"><label class="haken" for="f-tls"><input id="f-tls" name="tls" type="checkbox" checked aria-describedby="h-tls">TLS</label>
+<p class="hilfe" id="h-tls">Verschlüsselte Verbindung. Nur ausschalten, wenn dein Server kein TLS kann: Sonst geht das Passwort unverschlüsselt durch das Netz.</p></div>
+</div>
+</details>
+<p role="status" class="sr-only" id="status"></p>
+<div class="knoepfe" style="margin-top:16px"><button class="btn" type="button">Abbrechen</button><button class="btn btn-primary" id="absenden" type="submit">Verbindung erneut testen</button></div>
+</form>
+</div>
+</section><script>(function(){
+var f=document.getElementById('form'),b=document.getElementById('absenden'),s=document.getElementById('status');
+var q=new URLSearchParams(location.search).get('dienst'),n={google:'Google',microsoft:'Microsoft 365'}[q];
+if(n&&document.getElementById('oauth-teil')){document.getElementById('andere-teil').hidden=true;document.getElementById('oauth-teil').hidden=false;
+document.querySelectorAll('.anbieter').forEach(function(e){e.textContent=n});
+document.getElementById('titel2').textContent=n+' verbinden';b.textContent='Mit '+n+' anmelden und Postfach anlegen';
+document.getElementById('o-name').required=true;document.querySelectorAll('#andere-teil [required]').forEach(function(e){e.required=false})}
+f.addEventListener('submit',function(e){e.preventDefault();b.disabled=true;b.textContent='Verbindung wird getestet …';s.textContent='Verbindung wird getestet …';
+setTimeout(function(){location.href=document.body.dataset.weiter+(location.search.indexOf('theme=')>-1?'?'+location.search.slice(1).split('&').filter(function(x){return x.indexOf('theme=')===0}).join('&'):'')},900)});
+})()</script><script>document.getElementById('zumpw').addEventListener('click',function(){document.getElementById('f-passwort').focus()});
+document.getElementById('f-passwort').focus({preventScroll:true});</script>
+<aside class="anm" aria-label="Anmerkung zum Mockup"><b>Anmerkung zum Mockup</b><ul style="margin:4px 0 0;padding-left:20px"><li>Fehler in drei Teilen. Die Meldung hat <code>role="alert"</code>; am Feld hängen <code>aria-invalid</code> und <code>aria-describedby</code> (Hilfetext und Fehlertext). Der Fehlertext am Feld hat bewusst kein zweites <code>role="alert"</code>, sonst liest der Screenreader doppelt.</li><li>Der Fokus steht auf dem schuldigen Feld (Passwort), leer und ohne Wert. „Passwort neu eingeben“ springt dorthin (auf dem Handy liegt die Meldung weit darüber).</li><li>Hauptaktion bleibt eine: „Verbindung erneut testen“. Die Details enthalten den Rohtext, nie das Passwort.</li></ul></aside>
+</div>
+</main>
+</div>
+<div class="mockbar" role="group" aria-label="Mockup: Darstellung"><button type="button" data-wahl="light" aria-pressed="false">Hell</button><button type="button" data-wahl="dark" aria-pressed="false">Dunkel</button><button type="button" data-wahl="auto" aria-pressed="true">Gerät</button></div>
+<script>(function(){
+var r=document.documentElement;
+function an(v){if(v==='light'||v==='dark')r.setAttribute('data-theme',v);else r.removeAttribute('data-theme');
+document.querySelectorAll('[data-wahl]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.wahl===(v||'auto')))})}
+document.querySelectorAll('[data-wahl]').forEach(function(b){b.addEventListener('click',function(){an(b.dataset.wahl)})});
+an(r.getAttribute('data-theme'));
+var m=document.getElementById('menue'),s=document.getElementById('nav');
+if(m)m.addEventListener('click',function(){var o=s.classList.toggle('offen');m.setAttribute('aria-expanded',String(o))});
+})()</script>
+</body>
+</html>

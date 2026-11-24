@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mockup: Einordnen und weiter, Noch offen, Abschluss</title>
+<style>
+/* Farben 1:1 aus src/styles.css; --field-border ist der Vorschlag aus DESIGN.md */
+:root{--bg:#fff;--side:#fafafa;--subtle:#f4f4f5;--fg:#09090b;--muted:#68686f;--border:#e4e4e7;--primary:#18181b;--onprimary:#fafafa;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;--c-blue:#2563eb;--c-amber:#b45309;--field-border:#85858e;--font:"Geist Variable",Geist,system-ui,sans-serif;color-scheme:light}
+:root[data-theme=dark]{--bg:#09090b;--side:#0c0c0e;--subtle:#18181b;--fg:#fafafa;--muted:#a1a1aa;--border:#27272a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--c-blue:#60a5fa;--c-amber:#fbbf24;--field-border:#71717a;color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#09090b;--side:#0c0c0e;--subtle:#18181b;--fg:#fafafa;--muted:#a1a1aa;--border:#27272a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--c-blue:#60a5fa;--c-amber:#fbbf24;--field-border:#71717a;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--subtle);color:var(--fg);font:14px/1.5 var(--font)}
+h1,h2,h3,p{margin:0}
+a{color:var(--fg);text-decoration:underline;text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+:is(input,select):focus-visible{outline-offset:0;border-color:var(--fg)}
+.ic{width:16px;height:16px;flex:none;margin-top:2px}
+.muted{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Mockup-Rahmen (nicht Teil der App) */
+.kopf{background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;flex-direction:column;gap:12px}
+.kopf h1{font-size:24px;font-weight:600;line-height:1.25}
+.leiste{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.leiste .gruppe{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.leiste .titel{font-weight:600;margin-right:4px}
+.schalter{display:inline-flex;gap:8px;align-items:center;min-height:40px;cursor:pointer}
+.schalter input{width:20px;height:20px;margin:0;accent-color:var(--primary)}
+.notiz{background:var(--subtle);border:1px solid var(--border);border-radius:6px;padding:12px;max-width:80ch}
+.stage{display:flex;gap:24px;align-items:flex-start;padding:24px;overflow-x:auto}
+.stage>section{flex:none}
+.stage h2{font-size:16px;font-weight:600;margin-bottom:8px}
+.frame{background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.frame.d{width:1100px}
+.frame.m{width:390px;font-size:14px}
+.app{display:grid;grid-template-columns:208px minmax(0,1fr);min-height:420px}
+.m .app{display:block;min-height:0}
+.side{background:var(--side);border-right:1px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:12px}
+.mbar{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--side)}
+.bar{display:block;height:12px;border-radius:4px;background:var(--border)}
+.bar:nth-child(odd){width:70%}.bar:nth-child(even){width:50%}
+.main{padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.m .main{padding:16px}
+.grau{opacity:.5;pointer-events:none;user-select:none}
+.doc{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:24px;align-items:start}
+.m .doc{grid-template-columns:minmax(0,1fr)}
+.vorschaubild{border:1px dashed var(--field-border);border-radius:8px;min-height:360px;display:grid;place-items:center;color:var(--muted)}
+.m .vorschaubild{min-height:96px}
+.doc>.card{grid-column:2;grid-row:1}.doc>.vorschaubild{grid-column:1;grid-row:1}
+.m .doc>*{grid-column:1;grid-row:auto}
+
+/* Bausteine der App */
+.card{border:1px solid var(--border);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.card h2{font-size:18px;font-weight:600;line-height:1.3}
+.zeile{display:flex;flex-direction:column;gap:4px;min-width:0}
+.zeile label{font-weight:500}
+.hilfe{color:var(--muted)}
+.feld{display:block;width:100%;height:40px;padding:0 12px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+.feld[aria-invalid=true]{border-color:var(--danger);box-shadow:inset 3px 0 0 var(--danger)}
+.fehler{display:flex;gap:8px;color:var(--danger)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit;font-weight:500;cursor:pointer;touch-action:manipulation;text-decoration:none;transition:background-color 150ms ease-out,transform 160ms ease-out}
+.btn.haupt{background:var(--primary);color:var(--onprimary);border-color:var(--primary)}
+.btn.text{border-color:transparent;background:transparent;text-decoration:underline;text-underline-offset:2px;padding:0 8px}
+.btn:active{transform:scale(.97)}
+@media(hover:hover){.btn:hover{background:var(--subtle)}.btn.haupt:hover{background:var(--primary);opacity:.9}}
+@media(pointer:coarse){.btn,.feld{min-height:44px;height:44px}.btn{height:auto}}
+.m .btn,.m .feld{min-height:44px;font-size:16px}.m .feld{height:44px}
+.knoepfe{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:center}
+.m .knoepfe .btn{flex:1 1 auto}
+.vs{display:flex;gap:8px;padding:12px;border-radius:6px;background:var(--subtle);border:1px solid var(--border);min-height:176px}
+.m .vs{min-height:192px}
+.vs>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.vs strong{font-weight:600}
+.vs.fehl{border-color:var(--danger);min-height:0}.vs.fehl .ic{color:var(--danger)}
+.hinweis{display:flex;gap:8px;color:var(--muted)}
+.lang{overflow-wrap:anywhere}
+dl.erg{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:8px 16px;margin:0}
+.m dl.erg{grid-template-columns:minmax(0,1fr);gap:0}.m dl.erg dd{margin-bottom:12px}
+dl.erg dt{color:var(--muted)}dl.erg dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+table{border-collapse:collapse;width:100%;max-width:900px;background:var(--bg)}
+th,td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+th{background:var(--subtle);font-weight:600}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+
+/* „neu“ markieren: Etikett (Text) plus Rahmenlinie */
+.neu-e{visibility:hidden;display:inline-block;font-size:12px;font-weight:500;line-height:18px;padding:0 6px;border:1px solid var(--muted);border-radius:4px;color:var(--muted);margin-right:8px;vertical-align:middle;background:var(--bg)}
+.hl .neu-e{visibility:visible}
+.neu{position:relative;margin-top:24px}
+.neu>.neu-e:first-child{position:absolute;bottom:100%;left:0;margin:0 0 4px}
+.hl .neu{box-shadow:0 0 0 3px var(--bg),0 0 0 4px var(--muted)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.rz{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap}
+.status{display:flex;gap:8px;align-items:flex-start;padding:12px;border-radius:6px;background:var(--subtle);border:1px solid var(--border);min-height:48px}
+.fok{outline:2px solid var(--fg);outline-offset:2px}
+.zaehler{display:flex;align-items:center;gap:16px}
+.m .zaehler{flex-direction:column;align-items:stretch;gap:8px;width:100%}
+h1.seite{font-size:24px;font-weight:600;line-height:1.25}
+.leer{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:48px 16px;border:1px dashed var(--field-border);border-radius:8px}
+.leer .rund{width:48px;height:48px;border-radius:50%;background:var(--subtle);border:1px solid var(--border);display:grid;place-items:center}
+.leer .rund .ic{width:24px;height:24px;margin:0}
+.leer .gross{font-size:18px;font-weight:600}
+.m .leer .btn{align-self:stretch}
+.tabelle{padding:0 24px 32px}
+.tabelle h2{font-size:18px;font-weight:600;margin-bottom:8px}
+.btn[aria-pressed=true]{background:var(--subtle);border-color:var(--fg);font-weight:600}
+.lk{display:inline-flex;align-items:center;min-height:24px;padding:0 4px;margin-left:-4px}
+.m .lk{min-height:44px}
+.schalter:has(:disabled){opacity:.5}
+
+</style>
+</head>
+<body>
+<header class="kopf">
+  <h1>Einordnen und weiter, Noch offen, Abschluss</h1>
+  <p class="muted"><a href="index.html">Überblick</a> · Mockup, kein Produktivcode. Nur das Neue ist gestaltet, der Rest ist ausgegraut. Die Zustandswahl oben schaltet um, die Links und Knöpfe in den Rahmen tun nichts.</p>
+  <div class="leiste" role="group" aria-label="Zustand wählen"><span class="titel">Zustand</span><span class="gruppe" id="tabs"></span></div>
+  <div class="leiste">
+    <span class="gruppe" role="group" aria-label="Darstellung"><span class="titel">Darstellung</span>
+      <button type="button" class="btn" data-theme-set="light" aria-pressed="false">Hell</button>
+      <button type="button" class="btn" data-theme-set="dark" aria-pressed="false">Dunkel</button>
+      <button type="button" class="btn" data-theme-set="geraet" aria-pressed="true">Gerät</button></span>
+    <label class="schalter"><input type="checkbox" id="hl" checked> Änderungen hervorheben</label>
+    <label class="schalter">Herkunft (wirkt in den Zuständen mit Zurück-Link)&nbsp;
+      <select id="herk" class="feld" style="width:auto"><option value="eingang">Eingang</option><option value="archiv">Archiv</option><option value="suche">Suche</option></select></label>
+    <label class="schalter"><input type="checkbox" id="zahl" checked> Zahl „heute eingeordnet“ zeigen (nur ⑧, offene Frage)</label>
+  </div>
+  <p class="notiz" id="notiz" role="note"></p>
+</header>
+<main id="stage" class="stage" tabindex="0" aria-label="Rahmen, seitlich scrollbar"></main>
+<section class="tabelle" aria-labelledby="th">
+  <h2 id="th">Herkunft und Wort im „Zurück“-Link</h2>
+  <p class="muted" style="margin-bottom:8px;max-width:80ch">Die Herkunft steckt heute schon im gemerkten Pfad (<code>listeMerken({ ids, zurueck })</code> in <code>DocumentList.tsx</code>, gelesen mit <code>listeLesen().zurueck</code>). Das Ziel des Links stimmt also; nur das Wort ist heute immer „Zurück zum Archiv“. Die Pfade in der Tabelle sind Annahmen.</p>
+  <table>
+    <thead><tr><th scope="col">Herkunft</th><th scope="col">Wort im Link</th><th scope="col">Ziel (heute schon so)</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Eingang, auch Schnellmodus</th><td>Zurück zum Eingang</td><td>/eingang</td></tr>
+      <tr><th scope="row">Archiv, auch mit Filter</th><td>Zurück zum Archiv</td><td>/archiv mit gemerktem Filter</td></tr>
+      <tr><th scope="row">Suche</th><td>Zurück zur Suche</td><td>Suchseite mit gemerkter Anfrage</td></tr>
+      <tr><th scope="row">Direkt geöffnet (kein gemerkter Pfad)</th><td>Zurück zum Archiv</td><td>/archiv</td></tr>
+    </tbody>
+  </table>
+</section>
+<script>
+/* Lucide-Pfade, einfarbig, 16 px, Strich 2 */
+const I={
+info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+alert:'<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>',
+lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18m-12 6 2 2 4-4"/>',
+check:'<path d="M20 6 9 17l-5-5"/>',
+ok:'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+dots:'<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+back:'<path d="m12 19-7-7 7-7M19 12H5"/>',
+next:'<path d="M5 12h14m-7-7 7 7-7 7"/>',
+retry:'<path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8M21 3v5h-5"/>',
+file:'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/>'};
+const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${I[n]}</svg>`;
+const de=iso=>iso.split('-').reverse().join('.');
+const neu=(t='neu')=>`<span class="neu-e">${t}</span>`;
+const bars=n=>'<i class="bar"></i>'.repeat(n);
+
+/* Rahmen: App-Hülle stark vereinfacht und ausgegraut, nur `inner` ist das Neue */
+function shell(f,inner){
+  return f==='d'
+    ?`<div class="app"><div class="side grau" inert aria-hidden="true">${bars(7)}</div><div class="main">${inner}</div></div>`
+    :`<div class="mbar grau" inert aria-hidden="true"><span>Belegt</span><span>Menü</span></div><div class="main">${inner}</div>`;
+}
+const zn=()=>{const b=document.querySelector('#tabs [aria-pressed="true"]');return b?': '+b.textContent:'';};
+function frames(html){ // beide Fassungen aus demselben Markup
+  $('#stage').innerHTML=
+   `<section aria-label="Desktop, 1100 Pixel${zn()}"><h2>Desktop, 1100 px</h2><div class="frame d">${shell('d',html('d'))}</div></section>`+
+   `<section aria-label="Handy, 390 Pixel${zn()}"><h2>Handy, 390 px</h2><div class="frame m">${shell('m',html('m'))}</div></section>`;
+}
+const $=(s,r=document)=>r.querySelector(s);
+
+/* Kopf: Theme, Hervorheben, Zustandswahl */
+function chrome(tabs,select){
+  const root=document.documentElement;
+  document.querySelectorAll('[data-theme-set]').forEach(b=>b.onclick=()=>{
+    const v=b.dataset.themeSet; v==='geraet'?root.removeAttribute('data-theme'):root.setAttribute('data-theme',v);
+    document.querySelectorAll('[data-theme-set]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  });
+  const hl=$('#hl'); if(hl){hl.onchange=()=>document.body.classList.toggle('hl',hl.checked);hl.onchange();}
+  const t=$('#tabs'); if(!t)return;
+  t.innerHTML=tabs.map(([k,l])=>`<button type="button" class="btn" data-z="${k}" aria-pressed="false">${l}</button>`).join('');
+  t.onclick=e=>{const b=e.target.closest('[data-z]');if(b)pick(b.dataset.z);};
+  window.pick=k=>{t.querySelectorAll('[data-z]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.z===k));select(k);};
+  pick(tabs[0][0]);
+}
+
+
+const S={z:'a',h:'eingang',zahl:true};
+const H={eingang:'Zurück zum Eingang',archiv:'Zurück zum Archiv',suche:'Zurück zur Suche'};
+const Z={
+ v:['⑦ Dokument offen: Position','Auf einem noch offenen Dokument steht die Position unter den offenen Dokumenten: „3 von 15“, rechts vom Zurück-Link, auch am Handy. Alle Zahlen zählen offene Dokumente. Sobald die Statusmeldung zum Einordnen steht (nächste Zustände), fehlt die Position, damit nicht „3 von 15“ und „Noch 14 offen“ gleichzeitig stehen.'],
+ a:['⑦ Einordnen & weiter: Karte','Nach „Einordnen & weiter“ bleibt die Karte mit dem Ergebnis stehen (Art, Entstanden, Frist; „Gesichert und versiegelt“ fehlt bewusst, weil es heute nicht im Ergebnis steht). Der Fokus liegt auf der Statusmeldung (Ring sichtbar). Hauptknopf: „Nächstes Dokument einordnen“ geht zum nächsten offenen Dokument, nicht zum nächsten der Liste. „Dokument ansehen“ ist ein Zweitlink. Ist nichts mehr offen, entfällt der Knopf und es folgt ⑧.'],
+ b:['⑦ Schnellmodus: nächstes Dokument','Im Schnellmodus geht Enter wie heute automatisch weiter. Oben im nächsten Dokument steht die Meldung „Eingeordnet. Noch 14 offen.“ als Status (role=status, kein Fokusraub). Sie bleibt, bis die nächste Aktion kommt, mindestens aber 10 Sekunden, damit sie lesbar bleibt. Ihr Platz ist reserviert, nichts springt. „Noch 14 offen“ zählt dieses Dokument mit. Die Position fehlt, solange die Meldung steht; danach zeigt das Dokument wieder „n von 14“.'],
+ c15:['⑦ Eingang: Noch 15 offen','Kopfzeile des Eingangs: Zähler „Noch 15 offen“ links vom Knopf „Schnell einordnen“. Am Handy steht der Zähler über dem Knopf, der Knopf ist 44 px hoch und füllt die Breite.'],
+ c1:['⑦ Eingang: Noch 1 offen','Einzahl getrennt: „Noch 1 offen“, nie „Noch 1 offene“.'],
+ d:['⑧ Alles eingeordnet','Statt „Eingang ist leer“ nach getaner Arbeit. Symbol: neutraler Haken in --fg auf --subtle, nicht --ok: Belegt hat nichts geprüft, nur gespeichert, und Grün steht nach DESIGN.md nur bei Geprüftem. Genau ein Knopf („Zum Archiv“), „Dokument hochladen“ nur als Link. Die Zahl „heute eingeordnet“ gibt es nur, wenn der Server sie liefert (Schalter oben).']};
+
+const back=()=>`<a class="btn text" href="#">${ic('back')}${H[S.h]}</a>`;
+const pos=n=>`<span class="muted" aria-label="Dokument ${n}">${n}</span>`;
+const platzhalterListe=`<div class="grau" inert aria-hidden="true" style="display:flex;flex-direction:column;gap:12px">${bars(6)}</div>`;
+const kopfEingang=zaehler=>`<div class="rz"><h1 class="seite">Eingang</h1>${zaehler?`
+  <div class="zaehler neu">${neu()}<p><strong>${zaehler}</strong></p><button type="button" class="btn">Schnell einordnen</button></div>`:''}</div>`;
+
+function view(f){
+  const p=f+'-';
+  if(S.z==='a') return `<div class="rz neu">${neu()}${back()}</div>
+  <div class="doc"><section class="card" aria-labelledby="${p}h"><h2 id="${p}h">Einordnung</h2>
+    <p class="status fok neu" role="status" tabindex="-1" id="${p}st">${neu()}${ic('ok')}<span>Eingeordnet. Noch 14 offen.</span></p>
+    <dl class="erg"><dt>Art</dt><dd>Buchungsbelege</dd><dt>Entstanden, empfangen oder abgesandt am</dt><dd>12.03.2026</dd><dt>Frist</dt><dd>bis 31.12.2034</dd></dl>
+    <div class="knoepfe neu">${neu()}<a class="btn text" href="#">Dokument ansehen</a><button type="button" class="btn haupt">Nächstes Dokument einordnen ${ic('next')}</button></div>
+  </section><div class="vorschaubild grau" inert aria-hidden="true">${ic('file')} Dokument, unverändert</div></div>`;
+  if(S.z==='v') return `<div class="rz neu">${neu()}${back()}${pos('3 von 15')}</div>
+  <div class="doc"><section class="card grau" inert aria-hidden="true"><h2>Einordnung</h2><div class="zeile"><span>Art</span>${bars(2)}</div><div class="zeile"><span>Entstanden am</span>${bars(2)}</div><div class="knoepfe"><span class="btn">Einordnen &amp; weiter</span></div></section>
+  <div class="vorschaubild grau" inert aria-hidden="true">${ic('file')} Dokument, noch offen</div></div>`;
+  if(S.z==='b') return `<p class="status neu" role="status" id="${p}st">${neu()}${ic('ok')}<span>Eingeordnet. Noch 14 offen.</span></p>
+  <div class="rz neu">${neu()}${back()}</div>
+  <div class="doc"><section class="card grau" inert aria-hidden="true"><h2>Einordnung</h2><div class="zeile"><span>Art</span>${bars(2)}</div><div class="zeile"><span>Entstanden am</span>${bars(2)}</div><div class="knoepfe"><span class="btn">Einordnen &amp; weiter</span></div></section>
+  <div class="vorschaubild grau" inert aria-hidden="true">${ic('file')} Nächstes offenes Dokument</div></div>`;
+  if(S.z==='c15'||S.z==='c1') return kopfEingang(S.z==='c1'?'Noch 1 offen':'Noch 15 offen')+platzhalterListe;
+  const n=S.zahl?`<p class="muted">15 Dokumente heute eingeordnet.</p>`:'';
+  return kopfEingang(null)+
+  `<div class="leer neu" role="status" aria-live="polite">${neu()}<span class="rund">${ic('check')}</span><p class="gross">Alles eingeordnet.</p>${n}<a class="btn haupt" href="#">Zum Archiv</a><a class="btn text" href="#">Dokument hochladen</a></div>`;
+}
+const draw=()=>frames(view);
+function setZ(k){S.z=k;$('#herk').disabled=!'vab'.includes(k);$('#zahl').disabled=k!=='d';$('#notiz').textContent=Z[k][1];draw();}
+chrome(Object.entries(Z).map(([k,v])=>[k,v[0]]),setZ);
+$('#herk').onchange=e=>{S.h=e.target.value;draw();};
+$('#zahl').onchange=e=>{S.zahl=e.target.checked;draw();};
+</script>
+</body>
+</html>

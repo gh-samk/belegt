@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Was ändert sich – Mockup 01 Start und Menü</title><style>
+:root{--bg:#ffffff;--side:#fafafa;--fg:#09090b;--muted:#68686f;--subtle:#f4f4f5;--border:#e4e4e7;--field-border:#85858e;--primary:#18181b;--onprimary:#fafafa;--ok:#15803d;--warn:#b45309;--danger:#b91c1c;--c-blue:#2563eb;--c-amber:#b45309;--ease:cubic-bezier(.23,1,.32,1);color-scheme:light}
+:root[data-theme=dark]{--bg:#09090b;--side:#0c0c0e;--fg:#fafafa;--muted:#a1a1aa;--subtle:#18181b;--border:#27272a;--field-border:#71717a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--c-blue:#60a5fa;--c-amber:#fbbf24;color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#09090b;--side:#0c0c0e;--fg:#fafafa;--muted:#a1a1aa;--subtle:#18181b;--border:#27272a;--field-border:#71717a;--primary:#fafafa;--onprimary:#18181b;--ok:#4ade80;--warn:#fbbf24;--danger:#f87171;--c-blue:#60a5fa;--c-amber:#fbbf24;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+input:focus-visible{outline-offset:0;border-color:var(--fg)}
+a{color:inherit}
+h1,h2,h3,p,ul,dl,dd{margin:0}
+ul{padding:0;list-style:none}
+.ic{flex:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:16px;top:-80px;background:var(--primary);color:var(--onprimary);padding:8px 12px;border-radius:6px;z-index:100}
+.skip:focus{top:16px}
+.mock{display:flex;gap:16px;align-items:center;padding:6px 16px;background:var(--subtle);border-bottom:1px solid var(--border);font-size:14px;color:var(--muted)}
+.mock a{padding:4px 0}
+.im-rahmen .mock{display:none}
+.app{display:flex;min-height:100dvh}
+.side{width:256px;flex:none;display:flex;flex-direction:column;gap:20px;padding:16px 12px;background:var(--side);border-right:1px solid var(--border);position:sticky;top:0;height:100dvh;overflow-y:auto}
+.marke{padding:0 10px;display:flex;flex-direction:column}
+.marke b{font-size:16px;font-weight:600}
+.marke span{font-size:14px;color:var(--muted)}
+.gruppe{display:flex;flex-direction:column;gap:2px}
+.gk{font-size:14px;font-weight:500;color:var(--muted);padding:0 10px 4px}
+.it{display:flex;align-items:center;gap:10px;position:relative;height:40px;padding:0 10px;border-radius:6px;text-decoration:none;color:var(--fg);transition:background-color 120ms ease}
+.it .ic{color:var(--muted)}
+.it[aria-current=page]{background:var(--subtle);font-weight:500}
+.it[aria-current=page] .ic{color:var(--fg)}
+.it[aria-current=page]::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:2px;border-radius:2px;background:var(--fg)}
+.it .txt{min-width:0;overflow-wrap:anywhere}
+.ansichten{padding-left:12px;display:flex;flex-direction:column;gap:2px}
+.ansichten .it{padding-left:10px}
+.zahl{margin-left:auto;min-width:24px;height:20px;padding:0 7px;border-radius:999px;display:inline-grid;place-items:center;font-size:12px;font-weight:600;background:var(--primary);color:var(--onprimary)}
+.zahl.leise{background:var(--subtle);color:var(--muted);font-weight:400}
+.fuss{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding:0 10px}
+.fuss .lbl{font-size:14px;color:var(--muted)}
+.fuss .ver{font-size:12px;color:var(--muted)}
+.fuss .mail{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fuss .reihe{display:flex;gap:8px}
+.seg{display:flex}
+.seg button{flex:1;height:40px;border:1px solid var(--field-border);background:var(--bg);color:var(--fg);font:inherit;cursor:pointer}
+.seg button+button{margin-left:-1px}
+.seg button:first-child{border-radius:6px 0 0 6px}
+.seg button:last-child{border-radius:0 6px 6px 0}
+.seg button:focus-visible{position:relative;z-index:1}
+.seg button[aria-pressed=true]{background:var(--primary);color:var(--onprimary)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:6px;border:1px solid var(--field-border);background:var(--bg);color:var(--fg);font:500 14px/1 system-ui,sans-serif;text-decoration:none;cursor:pointer;transition:background-color 120ms ease,transform 160ms var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn-p{background:var(--primary);color:var(--onprimary);border-color:var(--primary)}
+.btn[aria-disabled=true]{opacity:.5;cursor:default}
+@media(hover:hover) and (pointer:fine){.it:hover,.btn:hover{background:var(--subtle)}.btn-p:hover{background:var(--primary);opacity:.9}.seg button:hover{background:var(--subtle)}.seg button[aria-pressed=true]:hover{background:var(--primary)}}
+.link{display:inline-flex;align-items:center;min-height:40px;font-size:14px}
+.main{flex:1;min-width:0}
+.kopf{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;height:56px;padding:0 32px;border-bottom:1px solid var(--border);background:var(--bg)}
+.kopf h1{font-size:24px;font-weight:600;line-height:1.3;flex:none}
+.kopf form{margin-left:auto;flex:1;max-width:448px;display:flex}
+.suche{position:relative;width:100%}
+.suche .ic{position:absolute;left:12px;top:12px;color:var(--muted);pointer-events:none}
+.suche input{width:100%;height:40px;padding:0 12px 0 36px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+.suche input::placeholder{color:var(--muted);opacity:1}
+.glocke{flex:none;width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);cursor:pointer}
+.inh{padding:24px 32px 48px;display:flex;flex-direction:column;gap:24px}
+.card{border:1px solid var(--border);border-radius:8px;padding:16px;background:var(--bg)}
+.card h3{font-size:18px;font-weight:600;display:flex;gap:8px;align-items:center}
+.card h3 .ic{color:var(--muted)}
+.weiter{border-color:var(--fg);padding:24px;display:flex;flex-direction:column;gap:8px}
+.weiter.ruhig{border-color:var(--border);flex-direction:row;gap:16px;align-items:flex-start}
+.weiter .lbl{font-size:14px;color:var(--muted)}
+.weiter h2{font-size:18px;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
+.weiter .sub{max-width:65ch;font-size:16px;color:var(--muted)}
+.weiter .aktion{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:8px}
+.ruhig .ic{color:var(--muted);margin-top:2px}
+.ruhig .sub{font-size:14px}
+.ruhig .aktion{margin-top:0}
+.andere{max-width:65ch;display:flex;flex-direction:column;gap:4px}
+.andere summary{display:flex;align-items:center;min-height:40px;cursor:pointer;font-weight:500}
+.andere ul{padding-bottom:8px}
+.andere li{display:flex;flex-wrap:wrap;column-gap:8px;align-items:center;min-height:40px}
+.andere a{display:inline-flex;align-items:center;min-height:40px}
+.andere li span{color:var(--muted)}
+.stats dl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stats dt{font-size:14px;color:var(--muted)}
+.stats dd{font-size:18px;font-weight:600;line-height:1.4}
+.stats small{display:block;font-size:14px;color:var(--muted);font-weight:400}
+.zwei{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
+.spalte{display:flex;flex-direction:column;gap:12px;min-width:0}
+.spalte>h2{font-size:18px;font-weight:600}
+.zeilen li{display:flex;flex-direction:column;padding:10px 0;border-top:1px solid var(--border);overflow-wrap:anywhere}
+.zeilen li:first-child{border-top:0}
+.meta{font-size:14px;color:var(--muted)}
+.d{font-size:12px;color:var(--muted)}
+.kk{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.siegel{display:flex;gap:8px;align-items:flex-start;background:var(--subtle);border-radius:6px;padding:8px 12px;margin:12px 0}
+.siegel .ic{color:var(--ok);margin-top:3px}
+.siegel b{font-weight:500;display:block}
+.k{display:flex;flex-direction:column;gap:8px}
+.k p{color:var(--muted)}
+.mbar{display:none}
+.mbar .zahl{margin-left:0}
+@media(max-width:1023px){.zwei{grid-template-columns:1fr}.stats dl{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:767px){
+ .app{flex-direction:column}
+ .side{display:none}
+ .mbar{display:flex;position:sticky;top:0;z-index:30;align-items:center;justify-content:space-between;height:57px;padding:0 16px;background:var(--side);border-bottom:1px solid var(--border)}
+ .mbar>b{font-size:16px;font-weight:600}
+ .md summary{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px;border:1px solid var(--field-border);border-radius:6px;background:var(--bg);color:var(--fg);font:500 16px/1 system-ui,sans-serif;cursor:pointer;list-style:none}
+ .md summary::-webkit-details-marker{display:none}
+ .md .zahl{margin-left:0}
+ .md .i2,.md .t2{display:none}
+ .md[open] .i2,.md[open] .t2{display:inline-block}
+ .md[open] .i1,.md[open] .t1,.md[open] .zahl{display:none}
+ .panel{position:fixed;top:57px;left:0;right:0;bottom:0;z-index:25;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:12px;background:var(--side)}
+ .it{height:44px}
+ .fuss{padding:0 4px}
+ .fuss .mail{display:none}
+ .seg button{height:44px;font-size:16px}
+ .fuss .btn{flex:1}
+ .btn{height:44px;font-size:16px}
+ .link,.andere a,.andere summary{min-height:44px}
+ .andere li{min-height:44px}
+ .kopf{top:57px;padding:0 16px;gap:8px}
+ .suche input{height:44px;font-size:16px}
+ .suche .ic{top:14px}
+ .glocke{width:44px;height:44px}
+ .inh{padding:16px 16px 32px;gap:20px}
+ .weiter{padding:16px}
+ .weiter .aktion .btn{width:100%}
+ .weiter.ruhig{flex-direction:column;gap:8px}
+ .mock{flex-wrap:wrap;gap:4px 12px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+body{padding:24px;max-width:1100px;margin:0 auto}h1{font-size:24px;font-weight:600}
+table{border-collapse:collapse;width:100%;margin-top:24px}th,td{text-align:left;vertical-align:top;padding:12px;border-top:1px solid var(--border)}
+th{font-weight:600;width:18%}thead th{font-size:12px;color:var(--muted);font-weight:500;border-top:0}
+td p{margin-top:8px}
+@media(max-width:767px){table,tbody,tr,th,td{display:block;width:auto}thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}tr{border-top:1px solid var(--border);padding:12px 0}th,td{border:0;padding:4px 0}td::before{content:attr(data-l);display:block;font-size:14px;color:var(--muted)}body{padding:16px}}
+</style></head><body>
+<main id="inhalt"><h1>Was ändert sich: Start und Menü</h1>
+<p style="max-width:65ch;color:var(--muted);margin-top:8px">Mockups zu Issue 3, Abschnitt A. Erfundene Beispieldaten. Hell und Dunkel folgen dem Gerät, im Menü unter „Darstellung“ lässt sich umschalten.</p>
+<div class="x"><table><thead><tr><th scope="col">Punkt</th><th scope="col">Heute</th><th scope="col">Vorschlag</th></tr></thead><tbody><tr><th scope='row'>Startseite: erste Aufgabe</th><td data-l='Heute'>Oben vier gleich große Zahlenkacheln, danach vier Zustandskarten. Welche Aufgabe wartet, steht nirgends. Im leeren Archiv ein Kasten mit vier gleichrangigen Wegen.</td><td data-l='Vorschlag'>Eine Karte „Nächster Schritt“ mit einer Aufgabe und einem Hauptknopf. Reihenfolge: einordnen, hochladen, „Alles erledigt“.<p><a href='start-viel-zu-tun.html'>A viel zu tun</a> · <a href='start-erster-start.html'>B erster Start</a> · <a href='start-alles-erledigt.html'>C alles erledigt</a></p></td></tr><tr><th scope='row'>Startseite: Zustand</th><td data-l='Heute'>Vier Kacheln mit Diagrammen gleich laut wie alles andere.</td><td data-l='Vorschlag'>Zahlen als ein ruhiger Streifen unter der Karte. Siegel, Fristen, Quellen, Betrieb bleiben, sind aber leiser. Im leeren Archiv nur „Betrieb“.</td></tr><tr><th scope='row'>Menü gruppieren</th><td data-l='Heute'>Elf Einträge in einer Liste.</td><td data-l='Vorschlag'>Drei Gruppen mit Überschrift: Arbeiten (3), Einrichten (5), Nachweise (3). Der Eingang steht an Platz 2 der ersten Gruppe.</td></tr><tr><th scope='row'>Zähler am Eingang</th><td data-l='Heute'>Keiner. Nur gespeicherte Ansichten haben eine Zahl.</td><td data-l='Vorschlag'>Kräftige Zahl „16“ am Eingang, mit verstecktem Wort „offen“. Am Handy auch am Menü-Knopf, solange das Menü zu ist.</td></tr><tr><th scope='row'>Einheitliche Namen</th><td data-l='Heute'>Menü „Verfahrensdoku“, Seite „Verfahrensdokumentation“; Menü „Quellen“, Seite „Quellen und Schnittstellen“; Start heißt in der Kopfleiste „Überblick“.</td><td data-l='Vorschlag'>Menüwort = Seitentitel: „Verfahrensdokumentation“, „Quellen“, „Start“. Die Mock-Kopfleiste zeigt „Start“.</td></tr><tr><th scope='row'>Mobiles Menü</th><td data-l='Heute'>Leiste „Belegt“ + Menü-Knopf; Menü klappt unter der Leiste auf.</td><td data-l='Vorschlag'>Leiste bleibt. Aufgeklappt füllt das Menü den Bildschirm: Gruppen, Konto, Darstellung, Abmelden. Der Seitenname bleibt in der Kopfleiste darunter (nicht doppelt).<p><a href='menue-mobil.html'>Mobil ansehen, hell und dunkel</a></p></td></tr><tr><th scope='row'>Bleibt</th><td data-l='Heute'>Kopfleiste, Suche, Glocke, Lucide-Symbole, Menü klappt nach Linkklick zu, gespeicherte Ansichten unter Archiv.</td><td data-l='Vorschlag'>Unverändert übernommen.</td></tr></tbody></table></div>
+<p style="margin-top:24px"><a class="link" href="NOTIZEN.md">NOTIZEN.md</a></p></main></body></html>
